@@ -1,4 +1,9 @@
 package pe.edu.upc.inkametrics_backend.repositories;
 
-public interface IChannelRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import pe.edu.upc.inkametrics_backend.entities.ChannelMonitored;
+
+@Repository
+public interface IChannelRepository extends JpaRepository<ChannelMonitored, Integer> {
 }

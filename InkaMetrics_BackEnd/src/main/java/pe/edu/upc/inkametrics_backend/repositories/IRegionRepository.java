@@ -1,4 +1,9 @@
 package pe.edu.upc.inkametrics_backend.repositories;
 
-public interface IRegionRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import pe.edu.upc.inkametrics_backend.entities.Region;
+
+@Repository
+public interface IRegionRepository extends JpaRepository<Region, Integer> {
 }
