@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pe.edu.upc.inkametrics_backend.entities.DetectionAdvertising;
 
 @Repository
-public interface IDetectionAdvertisingRepository extends JpaRepository<DetectionAdvertising, Integer> {
+public interface IDetectionAdvertisingRepository extends JpaRepository<DetectionAdvertising,Integer> {
 }

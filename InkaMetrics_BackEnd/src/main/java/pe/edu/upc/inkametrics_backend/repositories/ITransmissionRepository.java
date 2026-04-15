@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pe.edu.upc.inkametrics_backend.entities.Transmission;
 
 @Repository
-public interface ITransmissionRepository extends JpaRepository<Transmission, Integer> {
+public interface ITransmissionRepository extends JpaRepository<Transmission,Integer> {
 }
