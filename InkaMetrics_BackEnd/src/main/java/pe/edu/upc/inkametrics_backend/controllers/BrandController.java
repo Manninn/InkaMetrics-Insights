@@ -36,7 +36,7 @@ public class BrandController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    @PutMapping("/actualizar")
+    @PutMapping("/actualizarmarca")
     public ResponseEntity<String> actualizar(@RequestBody BrandDTO dto) {
         Optional<Brand> existente = bS.listId(dto.getIdBrand());
         if (existente.isEmpty()) {
