@@ -14,7 +14,22 @@ public class RegionesServiceImplement implements IRegionesService {
     private IRegionesRepository cR;
 
     @Override
+    public void insert(Regiones regiones) {
+        cR.save(regiones);
+    }
+
+    @Override
     public List<Regiones> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public void delete(int id_region) {
+        cR.deleteById(id_region);
+    }
+
+    @Override
+    public Regiones listId(int id_region) {
+        return cR.findById(id_region).orElse(new Regiones());
     }
 }

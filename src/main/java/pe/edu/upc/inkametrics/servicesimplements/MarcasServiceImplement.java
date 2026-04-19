@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import pe.edu.upc.inkametrics.entities.Marcas;
 import pe.edu.upc.inkametrics.repositories.IMarcasRepository;
 import pe.edu.upc.inkametrics.servicesinterfaces.IMarcasService;
-import tools.jackson.databind.annotation.JsonAppend;
 
 import java.util.List;
 
@@ -15,7 +14,22 @@ public class MarcasServiceImplement implements IMarcasService {
     private IMarcasRepository cR;
 
     @Override
+    public void insert(Marcas marcas) {
+        cR.save(marcas);
+    }
+
+    @Override
     public List<Marcas> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public void delete(int id_marca) {
+        cR.deleteById(id_marca);
+    }
+
+    @Override
+    public Marcas listId(int id_marca) {
+        return cR.findById(id_marca).orElse(new Marcas());
     }
 }
