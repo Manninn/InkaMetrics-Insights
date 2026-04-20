@@ -1,7 +1,6 @@
 package pe.edu.upc.inkametrics.servicesinterfaces;
 
 import pe.edu.upc.inkametrics.entities.Canales_monitoreados;
-import pe.edu.upc.inkametrics.entities.Usuarios;
 
 import java.util.List;
 import java.util.Optional;

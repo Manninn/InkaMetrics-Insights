@@ -1,5 +1,4 @@
 package pe.edu.upc.inkametrics.servicesinterfaces;
-import pe.edu.upc.inkametrics.entities.Roles;
 import pe.edu.upc.inkametrics.entities.Streamers;
 
 import java.util.List;

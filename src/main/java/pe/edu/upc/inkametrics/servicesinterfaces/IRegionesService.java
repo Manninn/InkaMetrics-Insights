@@ -1,5 +1,4 @@
 package pe.edu.upc.inkametrics.servicesinterfaces;
-import pe.edu.upc.inkametrics.entities.Plataformas;
 import pe.edu.upc.inkametrics.entities.Regiones;
 
 import java.util.List;

@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.inkametrics.dtos.TransmisionesDTO;
 import pe.edu.upc.inkametrics.dtos.UsuariosDTO;
 import pe.edu.upc.inkametrics.entities.Usuarios;
-import pe.edu.upc.inkametrics.servicesinterfaces.ITransmisionesService;
 import pe.edu.upc.inkametrics.servicesinterfaces.IUsuariosService;
 
 import java.util.List;

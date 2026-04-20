@@ -1,7 +1,5 @@
 package pe.edu.upc.inkametrics.dtos;
 
-import jakarta.persistence.Column;
-
 import java.math.BigDecimal;
 
 public class PlanesDTO {

@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.inkametrics.dtos.RolesDTO;
 import pe.edu.upc.inkametrics.dtos.StreamersDTO;
 import pe.edu.upc.inkametrics.entities.Streamers;
-import pe.edu.upc.inkametrics.servicesinterfaces.IRolesService;
 import pe.edu.upc.inkametrics.servicesinterfaces.IStreamersService;
 
 import java.util.List;

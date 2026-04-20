@@ -1,6 +1,5 @@
 package pe.edu.upc.inkametrics.servicesinterfaces;
 
-import pe.edu.upc.inkametrics.entities.Empresas_clientes;
 import pe.edu.upc.inkametrics.entities.Marcas;
 import java.util.List;
 import java.util.Optional;

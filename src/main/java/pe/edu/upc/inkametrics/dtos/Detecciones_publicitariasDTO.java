@@ -1,6 +1,5 @@
 package pe.edu.upc.inkametrics.dtos;
 
-import jakarta.persistence.Column;
 
 public class Detecciones_publicitariasDTO {
     private int id;

@@ -6,9 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pe.edu.upc.inkametrics.dtos.RegionesDTO;
 import pe.edu.upc.inkametrics.dtos.RolesDTO;
-import pe.edu.upc.inkametrics.servicesinterfaces.IRegionesService;
 import pe.edu.upc.inkametrics.servicesinterfaces.IRolesService;
 
 import java.util.List;

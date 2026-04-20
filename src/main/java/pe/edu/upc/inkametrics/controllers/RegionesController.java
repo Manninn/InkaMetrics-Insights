@@ -5,10 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.inkametrics.dtos.PlataformasDTO;
 import pe.edu.upc.inkametrics.dtos.RegionesDTO;
 import pe.edu.upc.inkametrics.entities.Regiones;
-import pe.edu.upc.inkametrics.servicesinterfaces.IPlataformasService;
 import pe.edu.upc.inkametrics.servicesinterfaces.IRegionesService;
 
 import java.util.List;
