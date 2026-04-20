@@ -8,6 +8,6 @@ public interface IMetricasService {
     public List<Metricas> list();
     public Metricas insert(Metricas m);
     public Optional<Metricas> listId(int id);
-    public void update(Metricas m);
+    public void update(Metricas met);
     public void delete(int id);
 }

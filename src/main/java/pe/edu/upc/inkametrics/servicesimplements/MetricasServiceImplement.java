@@ -30,8 +30,8 @@ public class MetricasServiceImplement implements IMetricasService {
     }
 
     @Override
-    public void update(Metricas m) {
-        cR.save(m);
+    public void update(Metricas met) {
+        cR.save(met);
     }
 
     @Override

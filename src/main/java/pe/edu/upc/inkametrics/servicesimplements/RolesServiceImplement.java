@@ -7,6 +7,7 @@ import pe.edu.upc.inkametrics.repositories.IRolesRepository;
 import pe.edu.upc.inkametrics.servicesinterfaces.IRolesService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RolesServiceImplement implements IRolesService {
@@ -15,6 +16,26 @@ public class RolesServiceImplement implements IRolesService {
 
     @Override
     public List<Roles> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public Roles insert(Roles r) {
+        return cR.save(r);
+    }
+
+    @Override
+    public Optional<Roles> listId(int id) {
+        return cR.findById(id);
+    }
+
+    @Override
+    public void update(Roles rol) {
+        cR.save(rol);
+    }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
     }
 }

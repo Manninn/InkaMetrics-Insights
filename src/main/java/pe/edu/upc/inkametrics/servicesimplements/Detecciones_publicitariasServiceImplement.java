@@ -7,6 +7,7 @@ import pe.edu.upc.inkametrics.repositories.IDetecciones_publicitariasRepository;
 import pe.edu.upc.inkametrics.servicesinterfaces.IDetecciones_publicitariasService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class Detecciones_publicitariasServiceImplement implements IDetecciones_publicitariasService {
@@ -16,6 +17,26 @@ public class Detecciones_publicitariasServiceImplement implements IDetecciones_p
 
     @Override
     public List<Detecciones_publicitarias> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public Detecciones_publicitarias insert(Detecciones_publicitarias d) {
+        return cR.save(d);
+    }
+
+    @Override
+    public Optional<Detecciones_publicitarias> listId(int id) {
+        return cR.findById(id);
+    }
+
+    @Override
+    public void update(Detecciones_publicitarias det) {
+        cR.save(det);
+    }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
     }
 }

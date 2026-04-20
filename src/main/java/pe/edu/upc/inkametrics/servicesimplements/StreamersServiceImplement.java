@@ -7,6 +7,7 @@ import pe.edu.upc.inkametrics.repositories.IStreamersRepository;
 import pe.edu.upc.inkametrics.servicesinterfaces.IStreamersService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StreamersServiceImplement implements IStreamersService {
@@ -15,6 +16,26 @@ public class StreamersServiceImplement implements IStreamersService {
 
     @Override
     public List<Streamers> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public Streamers insert(Streamers s) {
+        return cR.save(s);
+    }
+
+    @Override
+    public Optional<Streamers> listId(int id) {
+        return cR.findById(id);
+    }
+
+    @Override
+    public void update(Streamers str) {
+        cR.save(str);
+    }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
     }
 }

@@ -8,6 +8,7 @@ import pe.edu.upc.inkametrics.servicesinterfaces.IMarcasService;
 import tools.jackson.databind.annotation.JsonAppend;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MarcasServiceImplement implements IMarcasService {
@@ -16,6 +17,26 @@ public class MarcasServiceImplement implements IMarcasService {
 
     @Override
     public List<Marcas> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public Marcas insert(Marcas m) {
+        return cR.save(m);
+    }
+
+    @Override
+    public Optional<Marcas> listId(int id) {
+        return cR.findById(id);
+    }
+
+    @Override
+    public void update(Marcas mar) {
+        cR.save(mar);
+    }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
     }
 }

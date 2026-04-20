@@ -7,6 +7,7 @@ import pe.edu.upc.inkametrics.repositories.ITransmisionesRepository;
 import pe.edu.upc.inkametrics.servicesinterfaces.ITransmisionesService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransmisionesServiceImplement implements ITransmisionesService {
@@ -15,6 +16,26 @@ public class TransmisionesServiceImplement implements ITransmisionesService {
 
     @Override
     public List<Transmisiones> list() {
-        return List.of();
+        return cR.findAll();
+    }
+
+    @Override
+    public Transmisiones insert(Transmisiones tra) {
+        return cR.save(tra);
+    }
+
+    @Override
+    public Optional<Transmisiones> listId(int id) {
+        return cR.findById(id);
+    }
+
+    @Override
+    public void update(Transmisiones tra) {
+        cR.save(tra);
+    }
+
+    @Override
+    public void delete(int id) {
+        cR.deleteById(id);
     }
 }
