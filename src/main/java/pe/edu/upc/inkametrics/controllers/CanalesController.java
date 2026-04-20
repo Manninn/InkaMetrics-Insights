@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.inkametrics.dtos.CanalesDTO;
 import pe.edu.upc.inkametrics.entities.Canales;
-import pe.edu.upc.inkametrics.entities.Usuarios;
 import pe.edu.upc.inkametrics.servicesinterfaces.ICanalesService;
 
 import java.util.List;

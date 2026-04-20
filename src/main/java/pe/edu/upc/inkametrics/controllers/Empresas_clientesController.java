@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.inkametrics.dtos.Detecciones_publicitariasDTO;
 import pe.edu.upc.inkametrics.dtos.Empresas_clientesDTO;
-import pe.edu.upc.inkametrics.entities.Detecciones_publicitarias;
 import pe.edu.upc.inkametrics.entities.Empresas_clientes;
 import pe.edu.upc.inkametrics.servicesinterfaces.IEmpresas_clientesService;
 
@@ -20,6 +18,7 @@ import java.util.stream.Collectors;
 public class Empresas_clientesController {
     @Autowired
     private IEmpresas_clientesService cS;
+
     @GetMapping
     public ResponseEntity<List<Empresas_clientesDTO>> listar() {
         ModelMapper m =new ModelMapper();

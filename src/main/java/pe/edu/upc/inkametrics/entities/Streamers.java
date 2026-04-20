@@ -72,4 +72,7 @@ public class Streamers {
     public void setRegiones(Regiones regiones) {
         this.regiones = regiones;
     }
+
+    public void set() {
+    }
 }

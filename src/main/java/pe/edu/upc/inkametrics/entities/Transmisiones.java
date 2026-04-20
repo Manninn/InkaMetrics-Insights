@@ -9,6 +9,7 @@ public class Transmisiones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_transmision;
+
     @Column(name = "titulo_stream", length = 200)
     private String titulo_stream;
     @Column(name = "fecha_inicio")
