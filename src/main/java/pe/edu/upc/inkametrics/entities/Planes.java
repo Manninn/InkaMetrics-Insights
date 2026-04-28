@@ -12,11 +12,11 @@ public class Planes {
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
     @Column(name = "precio_mensual", precision = 10, scale = 2)
-    private java.math.BigDecimal precio_mensual;
+    private int precio_mensual;
     @Column(name = "limite_api")
     private int limite_api;
 
-    public Planes(int id_plan, String nombre, BigDecimal precio_mensual, int limite_api) {
+    public Planes(int id_plan, String nombre, int precio_mensual, int limite_api) {
         this.id_plan = id_plan;
         this.nombre = nombre;
         this.precio_mensual = precio_mensual;
@@ -35,7 +35,7 @@ public class Planes {
         return nombre;
     }
 
-    public BigDecimal getPrecio_mensual() {
+    public int getPrecio_mensual() {
         return precio_mensual;
     }
 
@@ -51,7 +51,7 @@ public class Planes {
         this.nombre = nombre;
     }
 
-    public void setPrecio_mensual(BigDecimal precio_mensual) {
+    public void setPrecio_mensual(int precio_mensual) {
         this.precio_mensual = precio_mensual;
     }
 
