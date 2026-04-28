@@ -1,7 +1,6 @@
 package pe.edu.upc.inkametrics.entities;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "Planes")
@@ -11,9 +10,9 @@ public class Planes {
     private int id_plan;
     @Column(name = "nombre", length = 100, nullable = false)
     private String nombre;
-    @Column(name = "precio_mensual", precision = 10, scale = 2)
+    @Column(name = "precio_mensual", nullable = false)
     private int precio_mensual;
-    @Column(name = "limite_api")
+    @Column(name = "limite_api",nullable = false)
     private int limite_api;
 
     public Planes(int id_plan, String nombre, int precio_mensual, int limite_api) {

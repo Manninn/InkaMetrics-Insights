@@ -10,4 +10,6 @@ public interface IMetricasService {
     public Optional<Metricas> listId(int id);
     public void update(Metricas met);
     public void delete(int id);
+    public List<Object[]> reporteMetricasJPQL( ); // Query 1
+
 }

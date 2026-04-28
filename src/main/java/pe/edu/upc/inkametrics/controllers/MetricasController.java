@@ -6,11 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.inkametrics.dtos.MetricasDTO;
+import pe.edu.upc.inkametrics.dtos.MetricasPorTransmisionDTO;
 import pe.edu.upc.inkametrics.entities.Metricas;
 import pe.edu.upc.inkametrics.servicesinterfaces.IMetricasService;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -78,6 +78,29 @@ public class MetricasController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("machine no encontrado");
         }
+    }
+
+
+// Query 1:  Top 5 transmisiones con mayor cantidad de una métrica específica:
+    @GetMapping("/reporte-detallado")
+    public List<Map<String, String>> obtenerReporteFormateado() {
+        // 1. Llamada limpia al service
+        List<Object[]> lista = cS.reporteMetricasJPQL();
+
+        // 2. TODA LA LÓGICA DE DESARROLLO AQUÍ
+        List<Map<String, String>> response = new ArrayList<>();
+
+        for (Object[] fila : lista) {
+            Map<String, String> map = new HashMap<>();
+
+            // fila[0] es el título (String), fila[1] es la suma (Long/Number)
+            map.put("transmision", String.valueOf(fila[0]));
+            map.put("total", String.valueOf(fila[1]));
+
+            response.add(map);
+        }
+
+        return response;
     }
 
 }

@@ -1,11 +1,10 @@
 package pe.edu.upc.inkametrics.dtos;
 
-import java.math.BigDecimal;
 
 public class PlanesDTO {
     private int id_plan;
     private String nombre;
-    private java.math.BigDecimal precio_mensual;
+    private int precio_mensual;
     private int limite_api;
 
     public int getId_plan() {
@@ -16,7 +15,7 @@ public class PlanesDTO {
         return nombre;
     }
 
-    public BigDecimal getPrecio_mensual() {
+    public int getPrecio_mensual() {
         return precio_mensual;
     }
 
@@ -32,7 +31,7 @@ public class PlanesDTO {
         this.nombre = nombre;
     }
 
-    public void setPrecio_mensual(BigDecimal precio_mensual) {
+    public void setPrecio_mensual(int precio_mensual) {
         this.precio_mensual = precio_mensual;
     }
 

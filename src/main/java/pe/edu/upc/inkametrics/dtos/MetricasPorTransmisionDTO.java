@@ -5,6 +5,9 @@ public class MetricasPorTransmisionDTO {
     private String nombreMetrica;
     private int totalCantidad;
 
+    public MetricasPorTransmisionDTO() {
+        // Constructor vacío necesario para instanciar y usar setters
+    }
 
     public MetricasPorTransmisionDTO(String tituloStream, String nombreMetrica, int totalCantidad) {
         this.tituloStream = tituloStream;

@@ -38,4 +38,14 @@ public class MetricasServiceImplement implements IMetricasService {
     public void delete(int id) {
         cR.deleteById(id);
     }
+
+    @Override
+    public List<Object[]> reporteMetricasJPQL() {
+        return cR.reporteMetricasJPQL("comentarios");
+    }
+
+
 }
+
+
+
