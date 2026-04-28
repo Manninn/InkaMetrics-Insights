@@ -1,0 +1,44 @@
+package pe.edu.upc.inkametrics.servicesimplements;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import pe.edu.upc.inkametrics.entities.Plataformas;
+import pe.edu.upc.inkametrics.repositories.IPlataformasRepository;
+import pe.edu.upc.inkametrics.servicesinterfaces.IPlataformasService;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PlataformaServiceImplement implements IPlataformasService {
+    @Autowired
+    private IPlataformasRepository cR;
+
+    @Override
+    public List<Plataformas> list() { return cR.findAll(); }
+
+    @Override
+    public Plataformas insert(Plataformas p) {
+        return cR.save(p);
+    }
+
+    @Override
+    public Optional<Plataformas> ListById(int id_plataforma) {
+        return cR.findById(id_plataforma);
+    }
+
+    @Override
+    public void update(Plataformas p) {
+        cR.save(p);
+    }
+
+    @Override
+    public void delete(int id_plataforma) {
+        cR.deleteById(id_plataforma);
+    }
+
+    @Override
+    public List<Plataformas> buscarPorNombre(String nombre) {
+        return cR.buscarPorNombre(nombre);
+    }
+}
