@@ -51,4 +51,13 @@ public class RegionesController {
         RegionesDTO dto = m.map(cS.listId(id), RegionesDTO.class);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<RegionesDTO>> buscarPorNombre(@RequestParam("nombre") String nombre) {
+        ModelMapper m = new ModelMapper();
+        List<RegionesDTO> lista = cS.buscarPorNombre(nombre).stream()
+                .map(x -> m.map(x, RegionesDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(lista);
+    }
 }

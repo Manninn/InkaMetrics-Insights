@@ -32,4 +32,9 @@ public class MarcasServiceImplement implements IMarcasService {
     public Marcas listId(int id_marca) {
         return cR.findById(id_marca).orElse(new Marcas());
     }
+
+    @Override
+    public List<Marcas> buscarPorNombre(String nombre) {
+        return cR.buscarPorNombre(nombre);
+    }
 }

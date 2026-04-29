@@ -8,4 +8,7 @@ public interface IMarcasService {
     public List<Marcas> list();
     public void delete(int id_marca);
     public Marcas listId(int id_marca);
+
+    // Nueva función agregada
+    public List<Marcas> buscarPorNombre(String nombre);
 }

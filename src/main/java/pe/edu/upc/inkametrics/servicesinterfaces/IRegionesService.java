@@ -8,4 +8,7 @@ public interface IRegionesService {
     public List<Regiones> list();
     public void delete(int id_region);
     public Regiones listId(int id_region);
+
+    // Nueva función agregada
+    public List<Regiones> buscarPorNombre(String nombre);
 }

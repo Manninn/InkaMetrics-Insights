@@ -32,4 +32,10 @@ public class RegionesServiceImplement implements IRegionesService {
     public Regiones listId(int id_region) {
         return cR.findById(id_region).orElse(new Regiones());
     }
+
+    @Override
+    public List<Regiones> buscarPorNombre(String nombre) {
+        return cR.buscarPorNombre(nombre);
+    }
+
 }

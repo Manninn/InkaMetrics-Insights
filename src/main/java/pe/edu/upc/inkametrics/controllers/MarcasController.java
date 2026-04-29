@@ -51,4 +51,13 @@ public class MarcasController {
         MarcasDTO dto = m.map(cS.listId(id), MarcasDTO.class);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<MarcasDTO>> buscarPorNombre(@RequestParam("nombre") String nombre) {
+        ModelMapper m = new ModelMapper();
+        List<MarcasDTO> lista = cS.buscarPorNombre(nombre).stream()
+                .map(x -> m.map(x, MarcasDTO.class))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(lista);
+    }
 }
