@@ -39,7 +39,10 @@ public class DetectionAdvertisingServiceImplement implements IDetectionAdvertisi
     public Optional<DetectionAdvertising> listId(int idDetectionAdvertising) {
         return dA.findById(idDetectionAdvertising);}
 
-
+    @Override
+    public List<String[]> countDetectionsByBrand() {
+        return dA.countDetectionsByBrand();
+    }
 
 
 

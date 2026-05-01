@@ -13,7 +13,7 @@ public interface IDetectionAdvertisingService {
     public Optional<DetectionAdvertising> listId(int idDetectionAdvertising);
     public void update(DetectionAdvertising d);
     public void delete(int idDetectionAdvertising);
-
+    List<String[]> countDetectionsByBrand();
 
 
 }

@@ -34,6 +34,11 @@ public class BrandServiceImplement implements IBrandService {
     }
 
     @Override
+    public List<Brand> findBySector(String sector) {
+        return bR.findBySector(sector);
+    }
+
+    @Override
     public Optional<Brand> listId(int idBrand) {
         return bR.findById(idBrand);
     }

@@ -68,6 +68,17 @@ public class DetectionAdvertisingController {
                     .body("Deteccion no encontrada");
         }
     }
+
+    @GetMapping("/por-marca")
+    public ResponseEntity<?> cantidadPorMarca() {
+        List<String[]> lista = daS.countDetectionsByBrand();
+        if (lista.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron datos de detecciones por marca.");}
+        return ResponseEntity.ok(lista);
+    }
+
+
 }
 
 

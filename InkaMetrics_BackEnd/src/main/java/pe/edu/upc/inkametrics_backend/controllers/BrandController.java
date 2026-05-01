@@ -63,5 +63,19 @@ public class BrandController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Marca no encontrada");
         }
+    }
 
-    }}
+    @GetMapping("/buscar-sector")
+    public ResponseEntity<?> buscarSector(@RequestParam("sector") String sector) {
+        ModelMapper m = new ModelMapper();
+        List<BrandDTO> listasector = bS.findBySector(sector).stream()
+                .map(x -> m.map(x, BrandDTO.class))
+                .collect(Collectors.toList());
+
+        if (listasector.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron marcas registradas en el sector."+ sector);
+        }
+        return ResponseEntity.ok(listasector);
+    }
+}
