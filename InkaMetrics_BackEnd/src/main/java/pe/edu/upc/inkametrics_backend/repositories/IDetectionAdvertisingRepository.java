@@ -13,4 +13,11 @@ public interface IDetectionAdvertisingRepository extends JpaRepository<Detection
             "FROM brand b JOIN detectionadvertising d ON b.id_brand = d.id_brand " +
             "GROUP BY b.brand_name", nativeQuery = true)
     List<String[]> countDetectionsByBrand();
+
+    @Query("SELECT d.typeTransmission, SUM(d.durationsegTransmission) " +
+            "FROM DetectionAdvertising d " +
+            "GROUP BY d.typeTransmission")
+    List<String[]> sumDurationByType();
+
+
 }

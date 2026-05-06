@@ -44,6 +44,10 @@ public class DetectionAdvertisingServiceImplement implements IDetectionAdvertisi
         return dA.countDetectionsByBrand();
     }
 
+    @Override
+    public List<String[]> sumDurationByType() {
+        return List.of();
+    }
 
 
 }

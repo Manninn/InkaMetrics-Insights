@@ -15,46 +15,57 @@ public class DetectionAdvertising {
     private int secondAppearanceTransmission;
     @Column(name = "durationsegTransmission", nullable = false)
     private int durationsegTransmission;
+    @Column(name = "totalDuration", nullable = false)
+    private Long totalDuration;
 
     public DetectionAdvertising() {
     }
 
-    public DetectionAdvertising(int idDetectionAdvertising, String typeTransmission, int secondAppearanceTransmission, int durationsegTransmission) {
-            this.idDetectionAdvertising = idDetectionAdvertising;
-            this.typeTransmission = typeTransmission;
-            this.secondAppearanceTransmission = secondAppearanceTransmission;
-            this.durationsegTransmission = durationsegTransmission;
+    public DetectionAdvertising(int idDetectionAdvertising, String typeTransmission, int secondAppearanceTransmission, int durationsegTransmission, Long totalDuration) {
+        this.idDetectionAdvertising = idDetectionAdvertising;
+        this.typeTransmission = typeTransmission;
+        this.secondAppearanceTransmission = secondAppearanceTransmission;
+        this.durationsegTransmission = durationsegTransmission;
+        this.totalDuration = totalDuration;
     }
 
     public int getIdDetectionAdvertising() {
-            return idDetectionAdvertising;
+        return idDetectionAdvertising;
     }
 
     public void setIdDetectionAdvertising(int idDetectionAdvertising) {
-            this.idDetectionAdvertising = idDetectionAdvertising;
+        this.idDetectionAdvertising = idDetectionAdvertising;
     }
 
     public String getTypeTransmission() {
-            return typeTransmission;
+        return typeTransmission;
     }
 
     public void setTypeTransmission(String typeTransmission) {
-            this.typeTransmission = typeTransmission;
+        this.typeTransmission = typeTransmission;
     }
 
     public int getSecondAppearanceTransmission() {
-            return secondAppearanceTransmission;
+        return secondAppearanceTransmission;
     }
 
     public void setSecondAppearanceTransmission(int secondAppearanceTransmission) {
-            this.secondAppearanceTransmission = secondAppearanceTransmission;
+        this.secondAppearanceTransmission = secondAppearanceTransmission;
     }
 
     public int getDurationsegTransmission() {
-            return durationsegTransmission;
+        return durationsegTransmission;
     }
 
     public void setDurationsegTransmission(int durationsegTransmission) {
-            this.durationsegTransmission = durationsegTransmission;
+        this.durationsegTransmission = durationsegTransmission;
     }
+
+    public Long getTotalDuration() {
+        return totalDuration;
     }
+
+    public void setTotalDuration(Long totalDuration) {
+        this.totalDuration = totalDuration;
+    }
+}

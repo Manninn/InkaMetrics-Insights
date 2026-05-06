@@ -7,11 +7,11 @@ import jakarta.persistence.*;
 public class Brand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idBrand; //one to many  detecciones publicitarias
+    private int idBrand;
 
     @Column(name = "brandName", nullable = false)
     private String brandName;
-    @Column(name = "sectorbrand", nullable = false)
+    @Column(name = "sectorBrand", nullable = false)
     private String sectorBrand;
 
     public Brand() {

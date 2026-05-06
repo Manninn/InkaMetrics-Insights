@@ -14,6 +14,7 @@ public interface IDetectionAdvertisingService {
     public void update(DetectionAdvertising d);
     public void delete(int idDetectionAdvertising);
     List<String[]> countDetectionsByBrand();
+    List<String[]> sumDurationByType();
 
 
 }

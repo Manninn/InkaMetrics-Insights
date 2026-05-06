@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.inkametrics_backend.dtos.BrandDTO;
 import pe.edu.upc.inkametrics_backend.dtos.DetectionAdvertisingDTO;
+import pe.edu.upc.inkametrics_backend.dtos.DetectionDurationDTO;
 import pe.edu.upc.inkametrics_backend.entities.Brand;
 import pe.edu.upc.inkametrics_backend.entities.DetectionAdvertising;
 import pe.edu.upc.inkametrics_backend.serviceinterfaces.IDetectionAdvertisingService;
@@ -76,6 +77,27 @@ public class DetectionAdvertisingController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("No se encontraron datos de detecciones por marca.");}
         return ResponseEntity.ok(lista);
+    }
+
+    @GetMapping("/suma-duracion-tipo")
+    public ResponseEntity<?> sumDurationByType() {
+        ModelMapper m = new ModelMapper();
+
+        List<DetectionDurationDTO> listaSuma = daS.sumDurationByType().stream()
+                .map(x -> {
+                    DetectionDurationDTO dto = new DetectionDurationDTO();
+                    dto.setTypeTransmission(x[0]);
+                    dto.setTotalDuration(Long.parseLong(x[1]));
+                    return dto;
+                })
+                .collect(Collectors.toList());
+
+        if (listaSuma.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("No se encontraron registros de duración por tipo de transmisión.");
+        }
+
+        return ResponseEntity.ok(listaSuma);
     }
 
 
