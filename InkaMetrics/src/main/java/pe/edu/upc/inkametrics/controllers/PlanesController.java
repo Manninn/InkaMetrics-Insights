@@ -25,5 +25,13 @@ public class PlanesController {
                 .map(x->m.map(x, PlanesDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(listaPlanes);
+
+        @GetMapping("/premium")
+        public List<Plan> listarPlanesPremium() {
+            return pR.findAll()
+                    .stream()
+                    .filter(p -> p.getPrecioMensual() > 50)
+                    .toList();
+        }
     }
 }

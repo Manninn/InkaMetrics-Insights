@@ -26,5 +26,10 @@ public class RolesController {
                 .map(x->m.map(x, RolesDTO.class))
                 .collect(Collectors.toList());
         return ResponseEntity.ok(listaRoles);
+
+        @GetMapping
+        public List<Role> listarRoles() {
+            return rR.findAll();
+        }
     }
 }
