@@ -57,9 +57,10 @@ public class MetricaSnapshotServiceImplements implements IMetricaSnapshotService
         return mR.findByEmpresa(idEmpresa);
     }
 
+    // MetricaSnapshotServiceImplements.java
     @Override
-    public List<Object[]> reporteMetricasJPQL() {
-        return mR.reporteMetricasJPQL("comentarios"); // O el nombre que necesites por defecto
+    public List<Object[]> reporteMetricasJPQL(String nombreMetrica) {
+        return mR.reporteMetricasJPQL(nombreMetrica);
     }
 
     @Override

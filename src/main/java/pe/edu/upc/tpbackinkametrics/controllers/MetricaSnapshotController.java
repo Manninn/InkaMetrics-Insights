@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.MetricaPorRegionDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.MetricaSnapshotDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.MetricasPorTransmisionDTO;
 import pe.edu.upc.tpbackinkametrics.entities.MetricaSnapshot;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
 
@@ -72,16 +73,19 @@ public class MetricaSnapshotController {
         }
     }
 
-    @GetMapping("/reporte-transmisiones")
-    public List<Map<String, String>> obtenerReporteFormateado() {
-        List<Object[]> lista = mS.reporteMetricasJPQL();
-        List<Map<String, String>> response = new ArrayList<>();
+    // MetricaSnapshotController.java
+    @GetMapping("/reporte-top-transmisiones")
+    public List<MetricasPorTransmisionDTO> obtenerReporteFormateado(@RequestParam String nombreMetrica) {
+        List<Object[]> lista = mS.reporteMetricasJPQL(nombreMetrica);
+        List<MetricasPorTransmisionDTO> response = new ArrayList<>();
 
         for (Object[] fila : lista) {
-            Map<String, String> map = new HashMap<>();
-            map.put("transmision", String.valueOf(fila[0]));
-            map.put("total", String.valueOf(fila[1]));
-            response.add(map);
+            MetricasPorTransmisionDTO dto = new MetricasPorTransmisionDTO();
+            dto.setTituloStream(String.valueOf(fila[0]));
+            dto.setNombreMetrica(nombreMetrica);
+            dto.setTotalCantidad(Integer.parseInt(String.valueOf(fila[1])));// fila[1] es el SUM(m.Cantidad), que es un Long o Double en JPQL
+
+            response.add(dto);
         }
         return response;
     }

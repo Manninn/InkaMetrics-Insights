@@ -15,6 +15,6 @@ public interface IMetricaSnapshotService {
     public MetricaSnapshot update(MetricaSnapshot metricaSnapshot);
     public void delete(int id);
     public List<MetricaSnapshot> listByEmpresa(int idEmpresa);
-    List<Object[]> reporteMetricasJPQL();
+    List<Object[]> reporteMetricasJPQL(String nombreMetrica);
     List<MetricaPorRegionDTO> obtenerRendimientoPorRegion();
 }
