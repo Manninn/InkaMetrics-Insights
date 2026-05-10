@@ -14,7 +14,7 @@ public interface IMetricaSnapshotRepository extends JpaRepository<MetricaSnapsho
     @Query("SELECT ms FROM MetricaSnapshot ms WHERE ms.Transmision.canal.IdCanal IN " +
             "(SELECT cm.Canal.IdCanal FROM CanalMonitoreado cm WHERE cm.Empresa.IdEmpresa = :IdEmpresa)")
     List<MetricaSnapshot> findByEmpresa(@Param("IdEmpresa") int IdEmpresa);
-
+    // query
     // Query 1: Top transmisiones por métrica específica
     @Query("SELECT m.Transmision.TituloStream, SUM(m.Cantidad) " +
             "FROM MetricaSnapshot m " +
