@@ -1,4 +1,4 @@
-package upc.edu.pe.tpbackinkametrics.securities;
+package pe.edu.upc.tpbackinkametrics.securities;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,12 +12,13 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import upc.edu.pe.tpbackinkametrics.serviceimplements.JwtUserDetailsService;
+import pe.edu.upc.tpbackinkametrics.serviceimplements.JwtUserDetailsService;
 
 //@Profile(value = {"development", "production"})
 //Clase S7
@@ -73,9 +74,12 @@ public class WebSecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
                 .exceptionHandling(e -> e.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-                .sessionManagement(Customizer.withDefaults());
+                // Mantenemos STATELESS porque es lo correcto para JWT, pero solo una vez
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+        // ⚠️ ESTA LÍNEA ES VITAL: Si no está, el token no se procesa nunca
         httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
         return httpSecurity.build();
     }
 }

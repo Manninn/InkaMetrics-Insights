@@ -1,14 +1,13 @@
-package upc.edu.pe.tpbackinkametrics.serviceimplements;
+package pe.edu.upc.tpbackinkametrics.serviceimplements;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import upc.edu.pe.tpbackinkametrics.dtos.MetricaPorRegionDTO;
-import upc.edu.pe.tpbackinkametrics.entities.MetricaSnapshot;
-import upc.edu.pe.tpbackinkametrics.repositories.IMetricaSnapshotRepository;
-import upc.edu.pe.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
-import upc.edu.pe.tpbackinkametrics.util.SecurityUtils;
+import pe.edu.upc.tpbackinkametrics.entities.MetricaSnapshot;
+import pe.edu.upc.tpbackinkametrics.repositories.IMetricaSnapshotRepository;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
+import pe.edu.upc.tpbackinkametrics.util.SecurityUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,13 +56,5 @@ public class MetricaSnapshotServiceImplements implements IMetricaSnapshotService
         return mR.findByEmpresa(idEmpresa);
     }
 
-    @Override
-    public List<Object[]> reporteMetricasJPQL() {
-        return mR.reporteMetricasJPQL("comentarios"); // O el nombre que necesites por defecto
-    }
 
-    @Override
-    public List<MetricaPorRegionDTO> obtenerRendimientoPorRegion() {
-        return mR.findMetricsPerformanceByRegion();
-    }
 }

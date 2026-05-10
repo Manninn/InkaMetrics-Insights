@@ -1,4 +1,4 @@
-package upc.edu.pe.tpbackinkametrics.controllers;
+package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,13 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import upc.edu.pe.tpbackinkametrics.dtos.MetricaPorRegionDTO;
-import upc.edu.pe.tpbackinkametrics.dtos.MetricaSnapshotDTO;
-import upc.edu.pe.tpbackinkametrics.entities.MetricaSnapshot;
-import upc.edu.pe.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
+import pe.edu.upc.tpbackinkametrics.dtos.MetricaSnapshotDTO;
+import pe.edu.upc.tpbackinkametrics.entities.MetricaSnapshot;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
 
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -71,25 +71,4 @@ public class MetricaSnapshotController {
                     .body("Metricas Snapshots no encontrado");
         }
     }
-
-    @GetMapping("/reporte-transmisiones")
-    public List<Map<String, String>> obtenerReporteFormateado() {
-        List<Object[]> lista = mS.reporteMetricasJPQL();
-        List<Map<String, String>> response = new ArrayList<>();
-
-        for (Object[] fila : lista) {
-            Map<String, String> map = new HashMap<>();
-            map.put("transmision", String.valueOf(fila[0]));
-            map.put("total", String.valueOf(fila[1]));
-            response.add(map);
-        }
-        return response;
-    }
-
-    @GetMapping("/rendimiento-region")
-    public ResponseEntity<List<MetricaPorRegionDTO>> obtenerRendimientoPorRegion() {
-        List<MetricaPorRegionDTO> reporte = mS.obtenerRendimientoPorRegion();
-        return ResponseEntity.ok(reporte);
-    }
-
 }

@@ -1,4 +1,4 @@
-package upc.edu.pe.tpbackinkametrics.controllers;
+package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,10 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import upc.edu.pe.tpbackinkametrics.dtos.DeteccionPublicitariaDTO;
-import upc.edu.pe.tpbackinkametrics.dtos.DeteccionPublicitariaEspecialDTO;
-import upc.edu.pe.tpbackinkametrics.entities.DeteccionPublicitaria;
-import upc.edu.pe.tpbackinkametrics.serviceinterfaces.IDeteccionPublicitariaService;
+import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaEspecialDTO;
+import pe.edu.upc.tpbackinkametrics.entities.DeteccionPublicitaria;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IDeteccionPublicitariaService;
 
 
 import java.util.List;
@@ -78,4 +78,5 @@ public class DeteccionPublicitariaController {
                     .body("Deteccion Publicitaria no encontrado");
         }
     }
+
 }
