@@ -39,4 +39,9 @@ public class PlanServiceImplements implements IPlanService {
     public void delete(int id) {
         pR.deleteById(id);
     }
+
+    @Override
+    public List<Plan> listarPlanesMayorPrecio() {
+        return pR.listarPlanesMayorPrecio();
+    }
 }

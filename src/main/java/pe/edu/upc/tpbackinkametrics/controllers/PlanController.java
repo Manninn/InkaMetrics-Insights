@@ -32,6 +32,14 @@ public class PlanController {
                 })
                 .collect(Collectors.toList());
     }
+    @GetMapping("/mayorprecio")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+    public List<PlanDTO> listarPlanesMayorPrecio() {
+        return pS.listarPlanesMayorPrecio().stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, PlanDTO.class);
+        }).collect(Collectors.toList());
+    }
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")

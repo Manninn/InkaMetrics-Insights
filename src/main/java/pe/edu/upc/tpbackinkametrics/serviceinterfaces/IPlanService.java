@@ -12,4 +12,5 @@ public interface IPlanService {
     public Plan update(Plan plan);
     public void delete(int id);
 
+    public List<Plan> listarPlanesMayorPrecio();
 }
