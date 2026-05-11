@@ -1,6 +1,7 @@
 package pe.edu.upc.tpbackinkametrics.serviceinterfaces;
 
 
+import pe.edu.upc.tpbackinkametrics.dtos.TransmisionesStreamerDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 
 import java.util.List;
@@ -13,5 +14,6 @@ public interface ITransmisionService {
     public Transmision update(Transmision transmision);
     public void delete(int id);
     public List<Transmision> listByEmpresa(int idEmpresa);
+    public List<TransmisionesStreamerDTO> reporteTransmisionesPorStreamer();
 
 }

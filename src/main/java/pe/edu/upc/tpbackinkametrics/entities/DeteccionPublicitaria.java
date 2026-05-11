@@ -6,7 +6,8 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "deteccionPublicitaria")
-public class DeteccionPublicitaria {
+public class
+DeteccionPublicitaria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IdDeteccionPublicitaria;
