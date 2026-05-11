@@ -6,10 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaCantidadDTO;
-import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaDTO;
-import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaEspecialDTO;
-import pe.edu.upc.tpbackinkametrics.dtos.SumaPublicidadDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.*;
 import pe.edu.upc.tpbackinkametrics.entities.DeteccionPublicitaria;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IDeteccionPublicitariaService;
 
@@ -119,5 +116,11 @@ public class DeteccionPublicitariaController {
             listaDto.add(dto);
         }
         return ResponseEntity.ok(listaDto);
+    }
+
+    @GetMapping("/eficiencia-streamers")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+    public List<EficienciaStreamerDTO> verEficiencia() {
+        return dS.reporteEficiencia();
     }
 }

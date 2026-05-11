@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import pe.edu.upc.tpbackinkametrics.dtos.TransmisionesStreamerDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 import pe.edu.upc.tpbackinkametrics.repositories.ITransmisionRepository;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ITransmisionService;
@@ -11,6 +12,7 @@ import pe.edu.upc.tpbackinkametrics.util.SecurityUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransmisionServiceImplements implements ITransmisionService {
@@ -55,5 +57,15 @@ public class TransmisionServiceImplements implements ITransmisionService {
     @Override
     public List<Transmision> listByEmpresa(int idEmpresa) {
         return tR.findByEmpresa(idEmpresa);
+    }
+
+    @Override
+    public List<TransmisionesStreamerDTO> reporteTransmisionesPorStreamer() {
+        int idEmpresa = SecurityUtils.getIdEmpresaActual();
+        List<String[]> data = tR.countTransmissionsByStreamer(idEmpresa);
+
+        return data.stream()
+                .map(f -> new TransmisionesStreamerDTO(f[0], Long.parseLong(f[1])))
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package pe.edu.upc.tpbackinkametrics.serviceinterfaces;
 
+import pe.edu.upc.tpbackinkametrics.dtos.EficienciaStreamerDTO;
 import pe.edu.upc.tpbackinkametrics.entities.DeteccionPublicitaria;
 
 import java.util.List;
@@ -14,4 +15,8 @@ public interface IDeteccionPublicitariaService {
     public List<DeteccionPublicitaria> listByEmpresa(int idEmpresa);
     public List<String[]> countDeteccionMarca();
     public List<String[]> sumDurationByTipoPublicidad();
+    public List<EficienciaStreamerDTO> reporteEficiencia();
 }
+
+
+

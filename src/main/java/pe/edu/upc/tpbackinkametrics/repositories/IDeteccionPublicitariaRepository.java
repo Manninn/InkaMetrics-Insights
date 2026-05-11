@@ -21,4 +21,18 @@ public interface IDeteccionPublicitariaRepository extends JpaRepository<Deteccio
 
     @Query("SELECT d.Tipo, SUM(d.TiempoAparicionSeg) FROM DeteccionPublicitaria d GROUP BY d.Tipo")
     List<String[]> sumDurationByTipoPublicidad();
+
+    @Query(value = "SELECT s.nick_name, " +
+            "(SUM(d.tiempo_aparicion_seg) / (NULLIF(c.seguidores_actuales, 0) / 1000.0)) as eficiencia " +
+            "FROM deteccion_publicitaria d " +
+            "JOIN transmision t ON d.id_transmision = t.id_transmision " +
+            "JOIN canal c ON t.id_canal = c.id_canal " +
+            "JOIN streamer s ON c.id_streamer = s.id_streamer " +
+            "JOIN canal_monitoreado cm ON c.id_canal = cm.id_canal " +
+            "WHERE cm.id_empresa = :idEmpresa " +
+            "GROUP BY s.nick_name, c.seguidores_actuales " + // Añadimos seguidores_actuales al grupo
+            "ORDER BY eficiencia DESC", nativeQuery = true)
+    List<String[]> getStreamerEfficiency(@Param("idEmpresa") int idEmpresa);
+
+
 }

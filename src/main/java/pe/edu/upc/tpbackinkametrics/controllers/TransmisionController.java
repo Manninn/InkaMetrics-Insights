@@ -8,6 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.TransmisionDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.TransmisionEspecialDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.TransmisionesStreamerDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ITransmisionService;
 
@@ -19,7 +20,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/transmisiones")
 @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
-public class TransmisionController {
+public class
+TransmisionController {
 
     @Autowired
     private ITransmisionService tS;
@@ -77,5 +79,11 @@ public class TransmisionController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Transmision no encontrado");
         }
+    }
+
+    @GetMapping("/transmisiones-streamer")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+    public List<TransmisionesStreamerDTO> verTransmisiones() {
+        return tS.reporteTransmisionesPorStreamer();
     }
 }
