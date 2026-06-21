@@ -7,23 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.MetricaSnapshotDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.MetricasPorTransmisionDTO;
 import pe.edu.upc.tpbackinkametrics.entities.MetricaSnapshot;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/metricasSnapshots")
-@PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+//@PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
 public class MetricaSnapshotController {
     @Autowired
     private IMetricaSnapshotService mS;
 
-    @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+    @GetMapping("/lista")
+//    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<MetricaSnapshotDTO> listar() {
         System.out.println("Entrando a listar Metricas Snapshots");
         return mS.list().stream()
@@ -34,7 +36,7 @@ public class MetricaSnapshotController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/nuevo")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void insertar(@RequestBody MetricaSnapshotDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -70,5 +72,35 @@ public class MetricaSnapshotController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Metricas Snapshots no encontrado");
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<MetricaSnapshot> metricaSnapshot = mS.listId(id);
+
+        if (metricaSnapshot.isPresent()) {
+            MetricaSnapshotDTO dto = m.map(metricaSnapshot.get(), MetricaSnapshotDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Métrica no encontrada");
+        }
+    }
+
+    @GetMapping("/reporte-top-transmisiones")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
+    public ResponseEntity<List<MetricasPorTransmisionDTO>> obtenerReporteFormateado(@RequestParam String nombreMetrica) {
+        List<Object[]> lista = mS.reporteMetricasNativo(nombreMetrica);
+        List<MetricasPorTransmisionDTO> response = new ArrayList<>();
+
+        for (Object[] fila : lista) {
+            MetricasPorTransmisionDTO dto = new MetricasPorTransmisionDTO();
+            dto.setTituloStream(String.valueOf(fila[0]));
+            dto.setNombreMetrica(String.valueOf(fila[1]));
+            dto.setTotalCantidad(Integer.parseInt(String.valueOf(fila[2])));
+            response.add(dto);
+        }
+        return ResponseEntity.ok(response);
     }
 }

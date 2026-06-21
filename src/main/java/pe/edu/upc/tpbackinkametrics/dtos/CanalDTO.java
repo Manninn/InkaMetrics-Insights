@@ -1,54 +1,27 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 import pe.edu.upc.tpbackinkametrics.entities.Plataforma;
 import pe.edu.upc.tpbackinkametrics.entities.Streamer;
 
 public class CanalDTO {
-    private int IdCanal;
-    private String UrlCanal;
-    private int SeguidoresActuales;
-    private Plataforma Plataforma;
-    private Streamer Streamer;
+    private int idCanal;
+    private String urlCanal;
+    private int seguidoresActuales;
+    private Plataforma plataforma;
+    private Streamer streamer;
 
-    public int getIdCanal() {
-        return IdCanal;
-    }
+    public int getIdCanal() { return idCanal; }
+    public void setIdCanal(int idCanal) { this.idCanal = idCanal; }
 
-    public void setIdCanal(int idCanal) {
-        IdCanal = idCanal;
-    }
+    public String getUrlCanal() { return urlCanal; }
+    public void setUrlCanal(String urlCanal) { this.urlCanal = urlCanal; }
 
-    public String getUrlCanal() {
-        return UrlCanal;
-    }
+    public int getSeguidoresActuales() { return seguidoresActuales; }
+    public void setSeguidoresActuales(int seguidoresActuales) { this.seguidoresActuales = seguidoresActuales; }
 
-    public void setUrlCanal(String urlCanal) {
-        UrlCanal = urlCanal;
-    }
+    public Plataforma getPlataforma() { return plataforma; }
+    public void setPlataforma(Plataforma plataforma) { this.plataforma = plataforma; }
 
-    public int getSeguidoresActuales() {
-        return SeguidoresActuales;
-    }
-
-    public void setSeguidoresActuales(int seguidoresActuales) {
-        SeguidoresActuales = seguidoresActuales;
-    }
-
-    public Plataforma getPlataforma() {
-        return Plataforma;
-    }
-
-    public void setPlataforma(Plataforma plataforma) {
-        Plataforma = plataforma;
-    }
-
-    public Streamer getStreamer() {
-        return Streamer;
-    }
-
-    public void setStreamer(Streamer streamer) {
-        Streamer = streamer;
-    }
-
+    public Streamer getStreamer() { return streamer; }
+    public void setStreamer(Streamer streamer) { this.streamer = streamer; }
 }

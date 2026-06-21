@@ -1,43 +1,22 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 
 public class MetricaSnapshotDTO {
-    private int IdMetricaSnapshot;
-    private String Nombre;
-    private int Cantidad;
-    private Transmision Transmision;
+    private int idMetricaSnapshot;
+    private String nombre;
+    private int cantidad;
+    private Transmision transmision;
 
-    public int getIdMetricaSnapshot() {
-        return IdMetricaSnapshot;
-    }
+    public int getIdMetricaSnapshot() { return idMetricaSnapshot; }
+    public void setIdMetricaSnapshot(int idMetricaSnapshot) { this.idMetricaSnapshot = idMetricaSnapshot; }
 
-    public void setIdMetricaSnapshot(int idMetricaSnapshot) {
-        IdMetricaSnapshot = idMetricaSnapshot;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return Nombre;
-    }
+    public int getCantidad() { return cantidad; }
+    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public int getCantidad() {
-        return Cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        Cantidad = cantidad;
-    }
-
-    public Transmision getTransmision() {
-        return Transmision;
-    }
-
-    public void setTransmision(Transmision transmision) {
-        Transmision = transmision;
-    }
+    public Transmision getTransmision() { return transmision; }
+    public void setTransmision(Transmision transmision) { this.transmision = transmision; }
 }

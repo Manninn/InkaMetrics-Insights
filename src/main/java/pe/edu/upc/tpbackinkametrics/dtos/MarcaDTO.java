@@ -1,32 +1,16 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 public class MarcaDTO {
-    private int IdMarca;
-    private String Nombre;
-    private String Sector;
+    private int idMarca;
+    private String nombre;
+    private String sector;
 
-    public int getIdMarca() {
-        return IdMarca;
-    }
+    public int getIdMarca() { return idMarca; }
+    public void setIdMarca(int idMarca) { this.idMarca = idMarca; }
 
-    public void setIdMarca(int idMarca) {
-        IdMarca = idMarca;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public String getSector() {
-        return Sector;
-    }
-
-    public void setSector(String sector) {
-        Sector = sector;
-    }
+    public String getSector() { return sector; }
+    public void setSector(String sector) { this.sector = sector; }
 }

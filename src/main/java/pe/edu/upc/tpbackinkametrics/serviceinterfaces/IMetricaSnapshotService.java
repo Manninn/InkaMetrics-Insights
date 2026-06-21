@@ -15,4 +15,6 @@ public interface IMetricaSnapshotService {
     public void delete(int id);
     public List<MetricaSnapshot> listByEmpresa(int idEmpresa);
 
+    public List<Object[]> reporteMetricasNativo(String nombreMetrica);
+    public List<Object[]> findMetricsPerformanceByRegionNativo();
 }

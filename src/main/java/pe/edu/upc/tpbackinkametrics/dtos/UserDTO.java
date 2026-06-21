@@ -1,30 +1,16 @@
-package pe.edu.upc.tpbackinkametrics.entities;
+package pe.edu.upc.tpbackinkametrics.dtos;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import pe.edu.upc.tpbackinkametrics.entities.Empresa;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
-import java.util.List;
-
-@Entity
-@Table(name = "users")
-public class Users implements Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private Long id;
-
-    @Column(length = 30, unique = true)
     private String username;
-    @Column(length = 200)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY) // 👈 LA LÍNEA MÁGICA
     private String password;
     private Boolean enabled;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user", orphanRemoval = true)
-    private List<Role> roles;
-
-    @ManyToOne
-    @JoinColumn(name = "IdEmpresa", nullable = false)
     private Empresa empresa;
+
 
     public Long getId() {
         return id;
@@ -58,13 +44,6 @@ public class Users implements Serializable {
         this.enabled = enabled;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
 
     public Empresa getEmpresa() {
         return empresa;

@@ -1,63 +1,32 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 import pe.edu.upc.tpbackinkametrics.entities.Canal;
 
 import java.time.LocalDate;
 
 public class TransmisionDTO {
-    private int IdTransmision;
-    private String TituloStream;
-    private LocalDate FechaInicio;
-    private LocalDate FechaFin;
-    private boolean EnVivo;
+    private int idTransmision;
+    private String tituloStream;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private boolean enVivo;
     private Canal canal;
 
-    public int getIdTransmision() {
-        return IdTransmision;
-    }
+    public int getIdTransmision() { return idTransmision; }
+    public void setIdTransmision(int idTransmision) { this.idTransmision = idTransmision; }
 
-    public void setIdTransmision(int idTransmision) {
-        IdTransmision = idTransmision;
-    }
+    public String getTituloStream() { return tituloStream; }
+    public void setTituloStream(String tituloStream) { this.tituloStream = tituloStream; }
 
-    public String getTituloStream() {
-        return TituloStream;
-    }
+    public LocalDate getFechaInicio() { return fechaInicio; }
+    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
 
-    public void setTituloStream(String tituloStream) {
-        TituloStream = tituloStream;
-    }
+    public LocalDate getFechaFin() { return fechaFin; }
+    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
 
-    public LocalDate getFechaInicio() {
-        return FechaInicio;
-    }
+    public boolean isEnVivo() { return enVivo; }
+    public void setEnVivo(boolean enVivo) { this.enVivo = enVivo; }
 
-    public void setFechaInicio(LocalDate fechaInicio) {
-        FechaInicio = fechaInicio;
-    }
-
-    public LocalDate getFechaFin() {
-        return FechaFin;
-    }
-
-    public void setFechaFin(LocalDate fechaFin) {
-        FechaFin = fechaFin;
-    }
-
-    public boolean isEnVivo() {
-        return EnVivo;
-    }
-
-    public void setEnVivo(boolean enVivo) {
-        EnVivo = enVivo;
-    }
-
-    public Canal getCanal() {
-        return canal;
-    }
-
-    public void setCanal(Canal canal) {
-        this.canal = canal;
-    }
+    public Canal getCanal() { return canal; }
+    public void setCanal(Canal canal) { this.canal = canal; }
 }

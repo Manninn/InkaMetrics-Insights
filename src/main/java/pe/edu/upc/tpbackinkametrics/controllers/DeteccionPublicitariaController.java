@@ -24,7 +24,7 @@ public class DeteccionPublicitariaController {
     @Autowired
     private IDeteccionPublicitariaService dS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<DeteccionPublicitariaDTO> listar() {
         System.out.println("Entrando a listar Deteccion Publicitaria");
@@ -79,4 +79,17 @@ public class DeteccionPublicitariaController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<DeteccionPublicitaria> deteccionPublicitaria = dS.listId(id);
+
+        if (deteccionPublicitaria.isPresent()) {
+            DeteccionPublicitariaDTO dto = m.map(deteccionPublicitaria.get(), DeteccionPublicitariaDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Detección Publicitaria no encontrada");
+        }
+    }
 }

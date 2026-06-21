@@ -7,7 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.CanalDTO;
+import pe.edu.upc.tpbackinkametrics.dtos.CanalMonitoreadoDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Canal;
+import pe.edu.upc.tpbackinkametrics.entities.CanalMonitoreado;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ICanalService;
 
 
@@ -22,7 +24,7 @@ public class CanalController {
     @Autowired
     private ICanalService cS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<CanalDTO> listar() {
         System.out.println("Entrando a listar Canal");
@@ -34,7 +36,7 @@ public class CanalController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/nuevo")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void insertar(@RequestBody CanalDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -67,6 +69,20 @@ public class CanalController {
         if (canal.isPresent()) {
             cS.delete(id);
             return ResponseEntity.ok("Canal eliminado correctamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Canal no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Canal> canal = cS.listId(id);
+
+        if (canal.isPresent()) {
+            CanalDTO dto = m.map(canal.get(), CanalDTO.class);
+            return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Canal no encontrado");

@@ -1,68 +1,33 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import pe.edu.upc.tpbackinkametrics.entities.Marca;
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 
 import java.time.LocalTime;
 
 public class DeteccionPublicitariaDTO {
-    private int IdDeteccionPublicitaria;
-    private String Tipo;
-    private LocalTime MinutoAparicion;
-    private int TiempoAparicionSeg;
-    private Transmision Transmision;
-    private Marca Marca;
+    private int idDeteccionPublicitaria;
+    private String tipo;
+    private LocalTime minutoAparicion;
+    private int tiempoAparicionSeg;
+    private Transmision transmision;
+    private Marca marca;
 
-    public int getIdDeteccionPublicitaria() {
-        return IdDeteccionPublicitaria;
-    }
+    public int getIdDeteccionPublicitaria() { return idDeteccionPublicitaria; }
+    public void setIdDeteccionPublicitaria(int idDeteccionPublicitaria) { this.idDeteccionPublicitaria = idDeteccionPublicitaria; }
 
-    public void setIdDeteccionPublicitaria(int idDeteccionPublicitaria) {
-        IdDeteccionPublicitaria = idDeteccionPublicitaria;
-    }
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 
-    public String getTipo() {
-        return Tipo;
-    }
+    public LocalTime getMinutoAparicion() { return minutoAparicion; }
+    public void setMinutoAparicion(LocalTime minutoAparicion) { this.minutoAparicion = minutoAparicion; }
 
-    public void setTipo(String tipo) {
-        Tipo = tipo;
-    }
+    public int getTiempoAparicionSeg() { return tiempoAparicionSeg; }
+    public void setTiempoAparicionSeg(int tiempoAparicionSeg) { this.tiempoAparicionSeg = tiempoAparicionSeg; }
 
-    public LocalTime getMinutoAparicion() {
-        return MinutoAparicion;
-    }
+    public Transmision getTransmision() { return transmision; }
+    public void setTransmision(Transmision transmision) { this.transmision = transmision; }
 
-    public void setMinutoAparicion(LocalTime minutoAparicion) {
-        MinutoAparicion = minutoAparicion;
-    }
-
-    public int getTiempoAparicionSeg() {
-        return TiempoAparicionSeg;
-    }
-
-    public void setTiempoAparicionSeg(int tiempoAparicionSeg) {
-        TiempoAparicionSeg = tiempoAparicionSeg;
-    }
-
-    public Transmision getTransmision() {
-        return Transmision;
-    }
-
-    public void setTransmision(Transmision transmision) {
-        Transmision = transmision;
-    }
-
-    public Marca getMarca() {
-        return Marca;
-    }
-
-    public void setMarca(Marca marca) {
-        Marca = marca;
-    }
-
-
+    public Marca getMarca() { return marca; }
+    public void setMarca(Marca marca) { this.marca = marca; }
 }

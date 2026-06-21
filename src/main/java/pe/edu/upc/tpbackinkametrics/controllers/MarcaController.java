@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.tpbackinkametrics.dtos.EmpresaDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.MarcaDTO;
+import pe.edu.upc.tpbackinkametrics.entities.Empresa;
 import pe.edu.upc.tpbackinkametrics.entities.Marca;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMarcaService;
 
@@ -22,7 +24,7 @@ public class MarcaController {
     @Autowired
     private IMarcaService maS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<MarcaDTO> listar() {
         System.out.println("Entrando a listar Marca");
@@ -34,7 +36,7 @@ public class MarcaController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/nuevo")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void insertar(@RequestBody MarcaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -68,6 +70,20 @@ public class MarcaController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Marca no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Marca> marca = maS.listId(id);
+
+        if (marca.isPresent()) {
+            MarcaDTO dto = m.map(marca.get(), MarcaDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Marca no encontrada");
         }
     }
 }

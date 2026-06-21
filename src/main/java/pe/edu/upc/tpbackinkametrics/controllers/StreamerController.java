@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.tpbackinkametrics.dtos.RegionDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.StreamerDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.StreamerEspecialDTO;
+import pe.edu.upc.tpbackinkametrics.entities.Region;
 import pe.edu.upc.tpbackinkametrics.entities.Streamer;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IStreamerService;
 import pe.edu.upc.tpbackinkametrics.util.SecurityUtils;
@@ -24,7 +26,7 @@ public class StreamerController {
     @Autowired
     private IStreamerService sS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<StreamerDTO> listar() {
         System.out.println("Entrando a listar Streamer");
@@ -72,6 +74,20 @@ public class StreamerController {
         if (streamer.isPresent()) {
             sS.delete(id);
             return ResponseEntity.ok("Streamer eliminado correctamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Streamer no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Streamer> streamer = sS.listId(id);
+
+        if (streamer.isPresent()) {
+            StreamerDTO dto = m.map(streamer.get(), StreamerDTO.class);
+            return ResponseEntity.ok(dto);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Streamer no encontrado");

@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.tpbackinkametrics.dtos.PlataformaDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.RegionDTO;
+import pe.edu.upc.tpbackinkametrics.entities.Plataforma;
 import pe.edu.upc.tpbackinkametrics.entities.Region;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IRegionService;
 
@@ -21,7 +23,7 @@ public class RegionController {
     @Autowired
     private IRegionService rS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<RegionDTO> listar() {
         System.out.println("Entrando a listar Region");
@@ -33,7 +35,7 @@ public class RegionController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/nuevo")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void insertar(@RequestBody RegionDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -66,6 +68,20 @@ public class RegionController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Region no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Region> region = rS.listId(id);
+
+        if (region.isPresent()) {
+            RegionDTO dto = m.map(region.get(), RegionDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Region no encontrada");
         }
     }
 

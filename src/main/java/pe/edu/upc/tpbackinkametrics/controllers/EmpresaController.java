@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.tpbackinkametrics.dtos.DeteccionPublicitariaDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.EmpresaDTO;
+import pe.edu.upc.tpbackinkametrics.entities.DeteccionPublicitaria;
 import pe.edu.upc.tpbackinkametrics.entities.Empresa;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IEmpresaService;
 
@@ -21,7 +23,7 @@ public class EmpresaController {
     @Autowired
     private IEmpresaService eS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<EmpresaDTO> listar() {
         System.out.println("Entrando a listar Empresa");
@@ -33,7 +35,7 @@ public class EmpresaController {
                 .collect(Collectors.toList());
     }
 
-    @PostMapping
+    @PostMapping("/nuevo")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void insertar(@RequestBody EmpresaDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -68,6 +70,20 @@ public class EmpresaController {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body("Empresa no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Empresa> empresa = eS.listId(id);
+
+        if (empresa.isPresent()) {
+            EmpresaDTO dto = m.map(empresa.get(), EmpresaDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Empresa no encontrada");
         }
     }
 

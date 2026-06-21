@@ -57,4 +57,19 @@ public class MetricaSnapshotServiceImplements implements IMetricaSnapshotService
     }
 
 
+    @Override
+    public List<Object[]> reporteMetricasNativo(String nombreMetrica) {
+        return mR.reporteMetricasNativo(nombreMetrica);
+    }
+
+    @Override
+    public List<Object[]> findMetricsPerformanceByRegionNativo() {
+        return mR.findMetricsPerformanceByRegionNativo();
+    }
+
+
+
+
+
+
 }

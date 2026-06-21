@@ -1,55 +1,28 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 import pe.edu.upc.tpbackinkametrics.entities.Region;
 
 import java.time.LocalDate;
 
 public class StreamerDTO {
-    private int IdStreamer;
-    private String Nickname;
-    private String Genero;
-    private LocalDate FechaRegistroApp;
+    private int idStreamer;
+    private String nickname;
+    private String genero;
+    private LocalDate fechaRegistroApp;
     private Region region;
 
-    public int getIdStreamer() {
-        return IdStreamer;
-    }
+    public int getIdStreamer() { return idStreamer; }
+    public void setIdStreamer(int idStreamer) { this.idStreamer = idStreamer; }
 
-    public void setIdStreamer(int idStreamer) {
-        IdStreamer = idStreamer;
-    }
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
-    public String getNickname() {
-        return Nickname;
-    }
+    public String getGenero() { return genero; }
+    public void setGenero(String genero) { this.genero = genero; }
 
-    public void setNickname(String nickname) {
-        Nickname = nickname;
-    }
+    public LocalDate getFechaRegistroApp() { return fechaRegistroApp; }
+    public void setFechaRegistroApp(LocalDate fechaRegistroApp) { this.fechaRegistroApp = fechaRegistroApp; }
 
-    public String getGenero() {
-        return Genero;
-    }
-
-    public void setGenero(String genero) {
-        Genero = genero;
-    }
-
-    public LocalDate getFechaRegistroApp() {
-        return FechaRegistroApp;
-    }
-
-    public void setFechaRegistroApp(LocalDate fechaRegistroApp) {
-        FechaRegistroApp = fechaRegistroApp;
-    }
-
-    public Region getRegion() {
-        return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
+    public Region getRegion() { return region; }
+    public void setRegion(Region region) { this.region = region; }
 }

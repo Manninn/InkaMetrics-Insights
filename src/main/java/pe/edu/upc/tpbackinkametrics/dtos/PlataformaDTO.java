@@ -1,34 +1,16 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-import jakarta.persistence.Column;
-
 public class PlataformaDTO {
-    private int IdPlataforma;
-    private String Nombre;
+    private int idPlataforma;
+    private String nombre;
     private String urlBase;
 
-    public int getIdPlataforma() {
-        return IdPlataforma;
-    }
+    public int getIdPlataforma() { return idPlataforma; }
+    public void setIdPlataforma(int idPlataforma) { this.idPlataforma = idPlataforma; }
 
-    public void setIdPlataforma(int idPlataforma) {
-        this.IdPlataforma = idPlataforma;
-    }
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String nombre) {
-        Nombre = nombre;
-    }
-
-    public String getUrlBase() {
-        return urlBase;
-    }
-
-    public void setUrlBase(String urlBase) {
-        this.urlBase = urlBase;
-    }
-
+    public String getUrlBase() { return urlBase; }
+    public void setUrlBase(String urlBase) { this.urlBase = urlBase; }
 }

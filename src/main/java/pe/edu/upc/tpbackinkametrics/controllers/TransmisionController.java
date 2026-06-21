@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.tpbackinkametrics.dtos.StreamerDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.TransmisionDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.TransmisionEspecialDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Transmision;
@@ -24,7 +25,7 @@ public class TransmisionController {
     @Autowired
     private ITransmisionService tS;
 
-    @GetMapping
+    @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public List<TransmisionDTO> listar() {
         System.out.println("Entrando a listar Transmision");
@@ -54,7 +55,7 @@ public class TransmisionController {
         Optional<Transmision> existente = tS.listId(dto.getIdTransmision());
         if (existente.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Transmision no encontrado");
+                    .body("Transmisión no encontrado");
         }
         Transmision tr = existente.get();
         tr.setTituloStream(dto.getTituloStream());
@@ -62,7 +63,7 @@ public class TransmisionController {
         tr.setEnVivo(dto.isEnVivo());
         tr.setCanal(dto.getCanal());
         tS.update(tr);
-        return ResponseEntity.ok("Transmision actualizado correctamente");
+        return ResponseEntity.ok("Transmisión actualizado correctamente");
     }
 
     @DeleteMapping("/{id}")
@@ -75,7 +76,21 @@ public class TransmisionController {
             return ResponseEntity.ok("Transmision eliminado correctamente");
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Transmision no encontrado");
+                    .body("Transmisión no encontrado");
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
+        ModelMapper m = new ModelMapper();
+        Optional<Transmision> transmision = tS.listId(id);
+
+        if (transmision.isPresent()) {
+            TransmisionDTO dto = m.map(transmision.get(), TransmisionDTO.class);
+            return ResponseEntity.ok(dto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Transmisión no encontrada");
         }
     }
 }

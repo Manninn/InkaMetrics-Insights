@@ -3,40 +3,20 @@ package pe.edu.upc.tpbackinkametrics.dtos;
 import pe.edu.upc.tpbackinkametrics.entities.Plan;
 
 public class EmpresaDTO {
-    private int IdEmpresa;
-    private String NombreComercial;
-    private String Ruc;
-    private Plan Plan;
+    private int idEmpresa;
+    private String nombreComercial;
+    private String ruc;
+    private Plan plan;
 
-    public int getIdEmpresa() {
-        return IdEmpresa;
-    }
+    public int getIdEmpresa() { return idEmpresa; }
+    public void setIdEmpresa(int idEmpresa) { this.idEmpresa = idEmpresa; }
 
-    public void setIdEmpresa(int idEmpresa) {
-        IdEmpresa = idEmpresa;
-    }
+    public String getNombreComercial() { return nombreComercial; }
+    public void setNombreComercial(String nombreComercial) { this.nombreComercial = nombreComercial; }
 
-    public String getNombreComercial() {
-        return NombreComercial;
-    }
+    public String getRuc() { return ruc; }
+    public void setRuc(String ruc) { this.ruc = ruc; }
 
-    public void setNombreComercial(String nombreComercial) {
-        NombreComercial = nombreComercial;
-    }
-
-    public String getRuc() {
-        return Ruc;
-    }
-
-    public void setRuc(String ruc) {
-        Ruc = ruc;
-    }
-
-    public Plan getPlan() {
-        return Plan;
-    }
-
-    public void setPlan(Plan plan) {
-        Plan = plan;
-    }
+    public Plan getPlan() { return plan; }
+    public void setPlan(Plan plan) { this.plan = plan; }
 }

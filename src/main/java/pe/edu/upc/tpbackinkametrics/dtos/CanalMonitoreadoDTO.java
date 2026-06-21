@@ -1,37 +1,19 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-
 import pe.edu.upc.tpbackinkametrics.entities.Canal;
 import pe.edu.upc.tpbackinkametrics.entities.Empresa;
 
 public class CanalMonitoreadoDTO {
+    private int idCanalMonitoreado;
+    private Canal canal;
+    private Empresa empresa;
 
-    private int IdCanalMonitoreado;
-    private Canal Canal;
-    private Empresa Empresa;
+    public int getIdCanalMonitoreado() { return idCanalMonitoreado; }
+    public void setIdCanalMonitoreado(int idCanalMonitoreado) { this.idCanalMonitoreado = idCanalMonitoreado; }
 
-    public int getIdCanalMonitoreado() {
-        return IdCanalMonitoreado;
-    }
+    public Canal getCanal() { return canal; }
+    public void setCanal(Canal canal) { this.canal = canal; }
 
-    public void setIdCanalMonitoreado(int idCanalMonitoreado) {
-        IdCanalMonitoreado = idCanalMonitoreado;
-    }
-
-    public Canal getCanal() {
-        return Canal;
-    }
-
-    public void setCanal(Canal canal) {
-        Canal = canal;
-    }
-
-    public Empresa getEmpresa() {
-        return Empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        Empresa = empresa;
-    }
-
+    public Empresa getEmpresa() { return empresa; }
+    public void setEmpresa(Empresa empresa) { this.empresa = empresa; }
 }
