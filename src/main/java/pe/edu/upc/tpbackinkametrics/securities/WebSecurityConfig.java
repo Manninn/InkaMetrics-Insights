@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,10 +30,12 @@ import pe.edu.upc.tpbackinkametrics.serviceimplements.JwtUserDetailsService;
 //        .anyRequest().permitAll()  // ← esto hace que TODO sea público, sin token
 
 
+
 @Configuration
 @EnableWebSecurity
 // CÓDIGO COMENTADO (línea siguiente): activa @PreAuthorize en controllers para seguridad por roles. Descomentar para reactivar JWT.
-// @EnableMethodSecurity(proxyTargetClass = true) // (1) para jwt funcione de nuevo, descomentar esto
+// @EnableMethodSecurity(proxyTargetClass = true)
+// (1) para jwt funcione de nuevo, descomentar esto
 public class WebSecurityConfig {
 
     @Autowired
@@ -69,15 +72,20 @@ public class WebSecurityConfig {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(req -> req
-                        // CÓDIGO COMENTADO (líneas 70-75): reglas originales JWT — definen qué endpoints son públicos y cuáles requieren autenticación. Descomentar y eliminar la línea .anyRequest().permitAll() para reactivar JWT.
 
-                        // (2) para jwt funcione de nuevo, descomentar estas 3 lineas de abajo
-                        // .requestMatchers("/InkaMetrics/tf/login", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**", "/error", "/usuarios").permitAll()
-                        // .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        // .anyRequest().authenticated()
+                // .requestMatchers(
+                // "/InkaMetrics/tf/login",
+                // "/swagger-ui/**",
+                // "/v3/api-docs/**",
+                // "/swagger-resources/**",
+                // "/webjars/**", "/error",
+                // "/usuarios").permitAll()
+                // .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                // .anyRequest().authenticated()
+                // (2) para jwt funcione de nuevo, descomentar estas 3 lineas de abajo
+                // AGREGADO: permite todos los endpoints sin autenticación para que el frontend Angular funcione sin token.
 
-                        // AGREGADO: permite todos los endpoints sin autenticación para que el frontend Angular funcione sin token.
-                .anyRequest().permitAll() // para jwt funcione de nuevo, Comentar esto (3) // ← esto hace que TODO sea público, sin token
+                .anyRequest().permitAll()// reactivar JWT -> Comentar esto (3) // ← esto hace que TODO sea público, sin token
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
