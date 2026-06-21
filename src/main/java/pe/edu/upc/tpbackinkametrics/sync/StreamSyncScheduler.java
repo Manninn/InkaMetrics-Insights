@@ -75,7 +75,7 @@ public class StreamSyncScheduler {
 
         // Marcar transmisiones previas como terminadas
         Optional<Transmision> transmisionActiva =
-            transmisionRepo.findFirstByCanal_IdCanalAndEnVivoTrue(canal.getIdCanal());
+            transmisionRepo.findActivaByCanal(canal.getIdCanal());
 
         if (streamOpt.isPresent()) {
             TwitchStreamData stream = streamOpt.get();
@@ -129,7 +129,7 @@ public class StreamSyncScheduler {
         }
 
         Optional<Transmision> transmisionActiva =
-            transmisionRepo.findFirstByCanal_IdCanalAndEnVivoTrue(canal.getIdCanal());
+            transmisionRepo.findActivaByCanal(canal.getIdCanal());
 
         if (data.getLivestream() != null) {
             KickChannelData.KickLivestream live = data.getLivestream();
