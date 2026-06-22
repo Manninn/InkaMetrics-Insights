@@ -39,4 +39,9 @@ public class RoleController {
     public void eliminar(@PathVariable("id") Long id) {
         rS.delete(id);
     }
+
+    @GetMapping("/{id}")
+    public RoleDTO buscarPorId(@PathVariable("id") Long id) {
+        return mO.map(rS.listId(id), RoleDTO.class);
+    }
 }

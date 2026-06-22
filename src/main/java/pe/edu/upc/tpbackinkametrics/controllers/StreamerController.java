@@ -60,7 +60,7 @@ public class StreamerController {
         }
         Streamer str = existente.get();
         str.setNickname(dto.getNickname());
-        str.setGenero(dto.getNickname());
+        str.setGenero(dto.getGenero());
         str.setRegion(dto.getRegion());
         sS.update(str);
         return ResponseEntity.ok("Streamer actualizado correctamente");

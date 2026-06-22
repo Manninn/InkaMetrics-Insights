@@ -14,7 +14,7 @@ public class CanalMonitoreado {
     private Canal Canal;
 
     @ManyToOne
-    @JoinColumn(name = "IdEmpresa", nullable = false)
+    @JoinColumn(name = "IdEmpresa", nullable = true)
     private Empresa Empresa;
 
     public int getIdCanalMonitoreado() {

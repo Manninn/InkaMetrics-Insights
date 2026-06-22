@@ -19,13 +19,13 @@ public class UserController {
     @Autowired
     private ModelMapper mO;
 
-    @PostMapping("/lista")
+    @PostMapping("/nuevo")
     public void registrar(@RequestBody UserDTO dto) {
         uS.insert(mO.map(dto, Users.class));
     }
 
-    @GetMapping("/nuevo")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')") // SOLO ADMINISTRADOR PUEDE LISTAR USUARIOS
+    @GetMapping("/lista")
+    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<UserDTO> listar() {
         return uS.list().stream().map(x -> mO.map(x, UserDTO.class)).collect(Collectors.toList());
     }
@@ -38,5 +38,10 @@ public class UserController {
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") Long id) {
         uS.delete(id);
+    }
+
+    @GetMapping("/{id}")
+    public UserDTO buscarPorId(@PathVariable("id") Long id) {
+        return mO.map(uS.listId(id), UserDTO.class);
     }
 }

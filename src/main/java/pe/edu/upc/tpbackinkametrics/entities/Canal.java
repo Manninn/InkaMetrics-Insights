@@ -20,7 +20,7 @@ public class Canal {
     private Plataforma Plataforma;
 
     @ManyToOne
-    @JoinColumn(name = "IdStreamer", nullable = false)
+    @JoinColumn(name = "IdStreamer", nullable = true)
     private Streamer Streamer;
 
     public Canal() {

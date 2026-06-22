@@ -11,6 +11,10 @@ import pe.edu.upc.tpbackinkametrics.dtos.CanalMonitoreadoDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Canal;
 import pe.edu.upc.tpbackinkametrics.entities.CanalMonitoreado;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ICanalService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ICanalMonitoreadoService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ITransmisionService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricaSnapshotService;
+import pe.edu.upc.tpbackinkametrics.entities.Transmision;
 
 
 import java.util.List;
@@ -23,6 +27,12 @@ import java.util.stream.Collectors;
 public class CanalController {
     @Autowired
     private ICanalService cS;
+    @Autowired
+    private ICanalMonitoreadoService cmS;
+    @Autowired
+    private ITransmisionService tS;
+    @Autowired
+    private IMetricaSnapshotService mS;
 
     @GetMapping("/lista")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
@@ -65,14 +75,23 @@ public class CanalController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> eliminar(@PathVariable int id) {
         Optional<Canal> canal = cS.listId(id);
-
-        if (canal.isPresent()) {
-            cS.delete(id);
-            return ResponseEntity.ok("Canal eliminado correctamente");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Canal no encontrado");
+        if (canal.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Canal no encontrado");
         }
+        // Eliminar en cascada: MetricaSnapshot → Transmision → CanalMonitoreado → Canal
+        tS.list().stream()
+            .filter(t -> t.getCanal() != null && t.getCanal().getIdCanal() == id)
+            .forEach(t -> {
+                mS.list().stream()
+                    .filter(m -> m.getTransmision() != null && m.getTransmision().getIdTransmision() == t.getIdTransmision())
+                    .forEach(m -> mS.delete(m.getIdMetricaSnapshot()));
+                tS.delete(t.getIdTransmision());
+            });
+        cmS.list().stream()
+            .filter(cm -> cm.getCanal() != null && cm.getCanal().getIdCanal() == id)
+            .forEach(cm -> cmS.delete(cm.getIdCanalMonitoreado()));
+        cS.delete(id);
+        return ResponseEntity.ok("Canal eliminado correctamente");
     }
 
     @GetMapping("/{id}")

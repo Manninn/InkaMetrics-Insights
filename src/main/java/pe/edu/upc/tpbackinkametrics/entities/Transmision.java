@@ -11,7 +11,7 @@ public class Transmision {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IdTransmision;
 
-    @Column(name = "TituloStream", nullable = false, length = 100)
+    @Column(name = "TituloStream", nullable = false, length = 500)
     private String TituloStream;
 
     @Column(name = "FechaInicio", nullable = false)
