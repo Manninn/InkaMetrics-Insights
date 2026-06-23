@@ -14,7 +14,7 @@ public class RoleServiceImplements implements IRoleService {
     private IRoleRepository rR;
 
     @Override
-    public void insert(Role role) { rR.save(role); }
+    public void insert(Role role) { role.setId(null); rR.save(role); }
 
     @Override
     public List<Role> list() { return rR.findAll(); }

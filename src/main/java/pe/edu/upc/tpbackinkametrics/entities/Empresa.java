@@ -1,8 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "empresa")
@@ -22,6 +22,14 @@ public class Empresa {
     @JoinColumn(name = "IdPlan", nullable = false)
     private Plan Plan;
 
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "empresa", cascade = CascadeType.REMOVE)
+    private List<Users> usuarios;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Empresa", cascade = CascadeType.REMOVE)
+    private List<CanalMonitoreado> canalesMonitoreados;
 
     public Empresa() {
     }

@@ -1,6 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "canal")
@@ -22,6 +24,14 @@ public class Canal {
     @ManyToOne
     @JoinColumn(name = "IdStreamer", nullable = true)
     private Streamer Streamer;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "canal", cascade = CascadeType.REMOVE)
+    private List<Transmision> transmisiones;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Canal", cascade = CascadeType.REMOVE)
+    private List<CanalMonitoreado> canalesMonitoreados;
 
     public Canal() {
     }

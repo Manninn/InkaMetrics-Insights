@@ -20,6 +20,9 @@ public class UserServiceImplements implements IUserService {
 
     @Override
     public void insert(Users user) {
+        // Forzar INSERT: el frontend manda id=0 por defecto, lo que confunde a Hibernate
+        user.setId(null);
+
         // 1. Encriptar la contraseña (siempre primero)
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 

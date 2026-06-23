@@ -1,8 +1,9 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "transmision")
@@ -17,7 +18,7 @@ public class Transmision {
     @Column(name = "FechaInicio", nullable = false)
     private LocalDate FechaInicio;
 
-    @Column(name = "FechaFin", nullable = false)
+    @Column(name = "FechaFin", nullable = true)
     private LocalDate FechaFin;
 
     @Column(name = "EnVivo", nullable = false)
@@ -26,6 +27,14 @@ public class Transmision {
     @ManyToOne
     @JoinColumn(name = "IdCanal", nullable = false)
     private Canal canal;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Transmision", cascade = CascadeType.REMOVE)
+    private List<MetricaSnapshot> metricas;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Transmision", cascade = CascadeType.REMOVE)
+    private List<DeteccionPublicitaria> detecciones;
 
     public Transmision() {
     }

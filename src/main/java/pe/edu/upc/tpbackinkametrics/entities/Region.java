@@ -1,6 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "region")
@@ -11,6 +13,10 @@ public class Region {
 
     @Column(name = "Nombre", nullable = false, unique = true, length = 100)
     private String Nombre;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "region", cascade = CascadeType.REMOVE)
+    private List<Streamer> streamers;
 
     public Region() {
     }

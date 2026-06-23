@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.UserDTO;
+import pe.edu.upc.tpbackinkametrics.entities.Empresa;
 import pe.edu.upc.tpbackinkametrics.entities.Users;
+import pe.edu.upc.tpbackinkametrics.repositories.IEmpresaRepository;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IUserService;
 
 import java.util.List;
@@ -18,10 +20,17 @@ public class UserController {
     private IUserService uS;
     @Autowired
     private ModelMapper mO;
+    @Autowired
+    private IEmpresaRepository eR;
 
     @PostMapping("/nuevo")
     public void registrar(@RequestBody UserDTO dto) {
-        uS.insert(mO.map(dto, Users.class));
+        Users user = mO.map(dto, Users.class);
+        if (dto.getEmpresa() != null) {
+            Empresa empresa = eR.findById(dto.getEmpresa().getIdEmpresa()).orElse(null);
+            user.setEmpresa(empresa);
+        }
+        uS.insert(user);
     }
 
     @GetMapping("/lista")

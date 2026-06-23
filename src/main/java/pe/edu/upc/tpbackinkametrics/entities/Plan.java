@@ -1,8 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name = "plan")
@@ -19,6 +19,10 @@ public class Plan {
 
     @Column(name = "LimiteApi", nullable = false)
     private int LimiteApi;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Plan", cascade = CascadeType.REMOVE)
+    private List<Empresa> empresas;
 
     public Plan() {
     }

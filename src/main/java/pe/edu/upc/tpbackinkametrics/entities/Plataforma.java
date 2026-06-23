@@ -1,6 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "plataforma")
@@ -14,6 +16,10 @@ public class Plataforma {
 
     @Column(name = "url_base", nullable = false, length = 200)
     private String urlBase;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Plataforma", cascade = CascadeType.REMOVE)
+    private List<Canal> canales;
 
     public Plataforma() {
     }

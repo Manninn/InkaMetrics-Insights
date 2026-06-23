@@ -1,6 +1,8 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "marca")
@@ -14,6 +16,10 @@ public class Marca {
 
     @Column(name = "Sector", nullable = false, length = 100)
     private String Sector;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Marca", cascade = CascadeType.REMOVE)
+    private List<DeteccionPublicitaria> detecciones;
 
     public Marca() {
     }

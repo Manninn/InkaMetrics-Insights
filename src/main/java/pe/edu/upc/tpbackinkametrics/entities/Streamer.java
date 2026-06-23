@@ -1,8 +1,9 @@
 package pe.edu.upc.tpbackinkametrics.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "streamer")
@@ -23,6 +24,10 @@ public class Streamer {
     @ManyToOne
     @JoinColumn(name = "IdRegion", nullable = false)
     private Region region;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "Streamer", cascade = CascadeType.REMOVE)
+    private List<Canal> canales;
 
     public Streamer() {
     }
