@@ -92,7 +92,7 @@ public class MetricSnapshotController {
         return ResponseEntity.ok(names);
     }
 
-    @GetMapping("/report-top-broadcasts")
+    @GetMapping("/reporte-top-transmisiones")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public ResponseEntity<List<MetricsByBroadcastDTO>> getTopBroadcastsReport(@RequestParam String metricName) {
         List<Object[]> rows = metricSnapshotService.reportMetricsNative(metricName);
@@ -107,7 +107,7 @@ public class MetricSnapshotController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/report-metrics-by-region")
+    @GetMapping("/reporte-metricas-por-region")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
     public ResponseEntity<List<MetricsByRegionDTO>> getMetricsByRegionReport() {
         List<Object[]> rows = metricSnapshotService.findMetricsPerformanceByRegionNative();
