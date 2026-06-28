@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 import pe.edu.upc.tpbackinkametrics.entities.Plan;
 
 @Repository
-public interface IPlanRepository extends JpaRepository<Plan,Integer> {
-
+public interface IPlanRepository extends JpaRepository<Plan, Integer> {
 }

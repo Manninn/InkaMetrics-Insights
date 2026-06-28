@@ -1,9 +1,9 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-import pe.edu.upc.tpbackinkametrics.entities.Users;
-
 public class RoleDTO {
     private Long id;
+    private String role;
+    private UserDTO user;
 
     public Long getId() {
         return id;
@@ -13,12 +13,12 @@ public class RoleDTO {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public UserDTO getUser() {
@@ -28,13 +28,4 @@ public class RoleDTO {
     public void setUser(UserDTO user) {
         this.user = user;
     }
-
-    private String rol;
-    private UserDTO user;
-
-
-
-
-
-
 }

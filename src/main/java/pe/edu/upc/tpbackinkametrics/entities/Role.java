@@ -2,30 +2,29 @@ package pe.edu.upc.tpbackinkametrics.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "rol"})})
+@Table(name = "roles", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"})})
 public class Role implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String rol;
+    @Column(name = "role")
+    private String role;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore // 👈 ¡ESTA ES LA MÁGICA! Rompe el bucle aquí.
-    private Users user;
+    @JsonIgnore
+    private User user;
 
-
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -37,13 +36,11 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getRol() {
-        return rol;
+    public String getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(String role) {
+        this.role = role;
     }
-
 }
-

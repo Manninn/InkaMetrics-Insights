@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.tpbackinkametrics.dtos.MetricaSnapshotDTO;
 import pe.edu.upc.tpbackinkametrics.dtos.PlanDTO;
-import pe.edu.upc.tpbackinkametrics.entities.MetricaSnapshot;
 import pe.edu.upc.tpbackinkametrics.entities.Plan;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IPlanService;
 
@@ -17,74 +15,62 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/planes")
+@RequestMapping("/plans")
 @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
 public class PlanController {
     @Autowired
-    private IPlanService pS;
+    private IPlanService planService;
 
-    @GetMapping("/lista")
+    @GetMapping("/list")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
-    public List<PlanDTO> listar() {
-        System.out.println("Entrando a listar Plan");
-        return pS.list().stream()
-                .map(entity -> {
-                    ModelMapper modelMapper = new ModelMapper();
-                    return modelMapper.map(entity, PlanDTO.class);
-                })
+    public List<PlanDTO> list() {
+        return planService.list().stream()
+                .map(entity -> new ModelMapper().map(entity, PlanDTO.class))
                 .collect(Collectors.toList());
     }
 
-    @PostMapping("/nuevo")
+    @PostMapping("/new")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public void insertar(@RequestBody PlanDTO dto) {
-        ModelMapper modelMapper = new ModelMapper();
-        Plan entity = modelMapper.map(dto, Plan.class);
-        pS.insert(entity);
+    public void insert(@RequestBody PlanDTO dto) {
+        Plan entity = new ModelMapper().map(dto, Plan.class);
+        planService.insert(entity);
     }
 
-    @PutMapping("/actualiza")
+    @PutMapping("/update")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<String> actualizar(@RequestBody PlanDTO dto) {
-        Optional<Plan> existente = pS.listId(dto.getIdPlan());
-        if (existente.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Plan no encontrado");
+    public ResponseEntity<String> update(@RequestBody PlanDTO dto) {
+        Optional<Plan> existing = planService.listId(dto.getId());
+        if (existing.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan not found");
         }
-        Plan pla = existente.get();
-        pla.setNombre(dto.getNombre());
-        pla.setLimiteApi(dto.getLimiteApi());
-        pla.setPrecioMensual(dto.getPrecioMensual());
-        pS.update(pla);
-        return ResponseEntity.ok("Plan actualizado correctamente");
+        Plan plan = existing.get();
+        plan.setName(dto.getName());
+        plan.setApiLimit(dto.getApiLimit());
+        plan.setMonthlyPrice(dto.getMonthlyPrice());
+        planService.update(plan);
+        return ResponseEntity.ok("Plan updated successfully");
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public ResponseEntity<String> eliminar(@PathVariable int id) {
-        Optional<Plan> plan = pS.listId(id);
-
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        Optional<Plan> plan = planService.listId(id);
         if (plan.isPresent()) {
-            pS.delete(id);
-            return ResponseEntity.ok("Plan eliminado correctamente");
+            planService.delete(id);
+            return ResponseEntity.ok("Plan deleted successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Plan no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan not found");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> buscarPorId(@PathVariable int id) {
-        ModelMapper m = new ModelMapper();
-        Optional<Plan> plan = pS.listId(id);
-
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        Optional<Plan> plan = planService.listId(id);
         if (plan.isPresent()) {
-            PlanDTO dto = m.map(plan.get(), PlanDTO.class);
+            PlanDTO dto = new ModelMapper().map(plan.get(), PlanDTO.class);
             return ResponseEntity.ok(dto);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Plan no encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan not found");
         }
     }
-
 }

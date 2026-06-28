@@ -1,22 +1,20 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-import jakarta.persistence.Column;
-
 public class PlanDTO {
-    private int idPlan;
-    private String nombre;
-    private Double precioMensual;
-    private int limiteApi;
+    private int id;
+    private String name;
+    private Double monthlyPrice;
+    private int apiLimit;
 
-    public int getIdPlan() { return idPlan; }
-    public void setIdPlan(int idPlan) { this.idPlan = idPlan; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public Double getPrecioMensual() { return precioMensual; }
-    public void setPrecioMensual(Double precioMensual) { this.precioMensual = precioMensual; }
+    public Double getMonthlyPrice() { return monthlyPrice; }
+    public void setMonthlyPrice(Double monthlyPrice) { this.monthlyPrice = monthlyPrice; }
 
-    public int getLimiteApi() { return limiteApi; }
-    public void setLimiteApi(int limiteApi) { this.limiteApi = limiteApi; }
+    public int getApiLimit() { return apiLimit; }
+    public void setApiLimit(int apiLimit) { this.apiLimit = apiLimit; }
 }

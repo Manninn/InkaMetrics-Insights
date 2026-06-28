@@ -9,33 +9,31 @@ import java.util.List;
 public class Region {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdRegion;
+    private int id;
 
-    @Column(name = "Nombre", nullable = false, unique = true, length = 100)
-    private String Nombre;
+    @Column(name = "name", nullable = false, unique = true, length = 100)
+    private String name;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "region", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "region")
     private List<Streamer> streamers;
 
     public Region() {
     }
 
-    public int getIdRegion() {
-        return IdRegion;
+    public int getId() {
+        return id;
     }
 
-    public void setIdRegion(int idRegion) {
-        IdRegion = idRegion;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
-
-
 }

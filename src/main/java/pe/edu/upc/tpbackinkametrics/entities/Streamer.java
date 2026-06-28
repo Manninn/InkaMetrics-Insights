@@ -10,58 +10,58 @@ import java.util.List;
 public class Streamer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdStreamer;
+    private int id;
 
-    @Column(name = "NickName", nullable = false, length = 100)
-    private String Nickname;
+    @Column(name = "nickname", nullable = false, length = 100)
+    private String nickname;
 
-    @Column(name = "Genero", nullable = false, length = 100)
-    private String Genero;
+    @Column(name = "gender", nullable = false, length = 100)
+    private String gender;
 
-    @Column(name = "FechaRegistroApp", nullable = false)
-    private LocalDate FechaRegistroApp;
+    @Column(name = "registration_date", nullable = false)
+    private LocalDate registrationDate;
 
     @ManyToOne
-    @JoinColumn(name = "IdRegion", nullable = false)
+    @JoinColumn(name = "region_id", nullable = false)
     private Region region;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "Streamer", cascade = CascadeType.REMOVE)
-    private List<Canal> canales;
+    @OneToMany(mappedBy = "streamer")
+    private List<Channel> channels;
 
     public Streamer() {
     }
 
-    public int getIdStreamer() {
-        return IdStreamer;
+    public int getId() {
+        return id;
     }
 
-    public void setIdStreamer(int idStreamer) {
-        IdStreamer = idStreamer;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNickname() {
-        return Nickname;
+        return nickname;
     }
 
     public void setNickname(String nickname) {
-        Nickname = nickname;
+        this.nickname = nickname;
     }
 
-    public String getGenero() {
-        return Genero;
+    public String getGender() {
+        return gender;
     }
 
-    public void setGenero(String genero) {
-        Genero = genero;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
-    public LocalDate getFechaRegistroApp() {
-        return FechaRegistroApp;
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setFechaRegistroApp(LocalDate fechaRegistroApp) {
-        FechaRegistroApp = fechaRegistroApp;
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public Region getRegion() {
@@ -71,5 +71,4 @@ public class Streamer {
     public void setRegion(Region region) {
         this.region = region;
     }
-
 }

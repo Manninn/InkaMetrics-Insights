@@ -9,8 +9,8 @@ import pe.edu.upc.tpbackinkametrics.entities.Streamer;
 import java.util.List;
 
 @Repository
-public interface IStreamerRepository extends JpaRepository<Streamer,Integer> {
-    @Query("SELECT s FROM Streamer s WHERE s.IdStreamer IN " +
-            "(SELECT cm.Canal.Streamer.IdStreamer FROM CanalMonitoreado cm WHERE cm.Empresa.IdEmpresa = :IdEmpresa)")
-    List<Streamer> findByEmpresa(@Param("IdEmpresa") int IdEmpresa);
+public interface IStreamerRepository extends JpaRepository<Streamer, Integer> {
+    @Query("SELECT s FROM Streamer s WHERE s.id IN " +
+            "(SELECT mc.channel.streamer.id FROM MonitoredChannel mc WHERE mc.company.id = :companyId)")
+    List<Streamer> findByCompany(@Param("companyId") int companyId);
 }

@@ -9,56 +9,53 @@ import java.util.List;
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdPlan;
+    private int id;
 
-    @Column(name = "Nombre", nullable = false, length = 100)
-    private String Nombre;
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-    @Column(name = "PrecioMensual", nullable = false)
-    private Double PrecioMensual;
+    @Column(name = "monthly_price", nullable = false)
+    private Double monthlyPrice;
 
-    @Column(name = "LimiteApi", nullable = false)
-    private int LimiteApi;
+    @Column(name = "api_limit", nullable = false)
+    private int apiLimit;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "Plan", cascade = CascadeType.REMOVE)
-    private List<Empresa> empresas;
+    @OneToMany(mappedBy = "plan")
+    private List<Company> companies;
 
     public Plan() {
     }
 
-    public int getIdPlan() {
-        return IdPlan;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPlan(int idPlan) {
-        IdPlan = idPlan;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return Nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        Nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Double getPrecioMensual() {
-        return PrecioMensual;
+    public Double getMonthlyPrice() {
+        return monthlyPrice;
     }
 
-    public void setPrecioMensual(Double precioMensual) {
-        PrecioMensual = precioMensual;
+    public void setMonthlyPrice(Double monthlyPrice) {
+        this.monthlyPrice = monthlyPrice;
     }
 
-    public Integer getLimiteApi() {
-        return LimiteApi;
+    public Integer getApiLimit() {
+        return apiLimit;
     }
 
-    public void setLimiteApi(Integer limiteApi) {
-        LimiteApi = limiteApi;
+    public void setApiLimit(Integer apiLimit) {
+        this.apiLimit = apiLimit;
     }
-
-
-
 }

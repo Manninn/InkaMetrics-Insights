@@ -11,5 +11,4 @@ public interface IPlanService {
     public Optional<Plan> listId(int id);
     public Plan update(Plan plan);
     public void delete(int id);
-
 }

@@ -15,33 +15,33 @@ import java.util.stream.Collectors;
 @RequestMapping("/roles")
 public class RoleController {
     @Autowired
-    private IRoleService rS;
+    private IRoleService roleService;
     @Autowired
     private ModelMapper mO;
 
-    @PostMapping("/nuevo")
-    public void registrar(@RequestBody RoleDTO dto) {
-        rS.insert(mO.map(dto, Role.class));
+    @PostMapping("/new")
+    public void insert(@RequestBody RoleDTO dto) {
+        roleService.insert(mO.map(dto, Role.class));
     }
 
-    @GetMapping("/lista")
+    @GetMapping("/list")
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
-    public List<RoleDTO> listar() {
-        return rS.list().stream().map(x -> mO.map(x, RoleDTO.class)).collect(Collectors.toList());
+    public List<RoleDTO> list() {
+        return roleService.list().stream().map(x -> mO.map(x, RoleDTO.class)).collect(Collectors.toList());
     }
 
-    @PutMapping("/actualiza")
-    public void modificar(@RequestBody RoleDTO dto) {
-        rS.update(mO.map(dto, Role.class));
+    @PutMapping("/update")
+    public void update(@RequestBody RoleDTO dto) {
+        roleService.update(mO.map(dto, Role.class));
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable("id") Long id) {
-        rS.delete(id);
+    public void delete(@PathVariable("id") Long id) {
+        roleService.delete(id);
     }
 
     @GetMapping("/{id}")
-    public RoleDTO buscarPorId(@PathVariable("id") Long id) {
-        return mO.map(rS.listId(id), RoleDTO.class);
+    public RoleDTO findById(@PathVariable("id") Long id) {
+        return mO.map(roleService.listId(id), RoleDTO.class);
     }
 }

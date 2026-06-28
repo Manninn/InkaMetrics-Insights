@@ -1,12 +1,12 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
 public class RegionDTO {
-    private int idRegion;
-    private String nombre;
+    private int id;
+    private String name;
 
-    public int getIdRegion() { return idRegion; }
-    public void setIdRegion(int idRegion) { this.idRegion = idRegion; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 }

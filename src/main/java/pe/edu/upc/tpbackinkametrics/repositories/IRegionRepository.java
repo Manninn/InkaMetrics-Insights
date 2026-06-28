@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface IRegionRepository extends JpaRepository<Region, Integer> {
 
-    @Query("SELECT r FROM Region r WHERE r.Nombre LIKE %:nombre%")
-    List<Region> buscarPorNombre(@Param("nombre") String nombre);
-
+    @Query("SELECT r FROM Region r WHERE r.name LIKE %:name%")
+    List<Region> findByName(@Param("name") String name);
 }

@@ -1,28 +1,26 @@
 package pe.edu.upc.tpbackinkametrics.dtos;
 
-import pe.edu.upc.tpbackinkametrics.entities.Region;
-
 import java.time.LocalDate;
 
 public class StreamerDTO {
-    private int idStreamer;
+    private int id;
     private String nickname;
-    private String genero;
-    private LocalDate fechaRegistroApp;
-    private Region region;
+    private String gender;
+    private LocalDate registrationDate;
+    private int regionId;
 
-    public int getIdStreamer() { return idStreamer; }
-    public void setIdStreamer(int idStreamer) { this.idStreamer = idStreamer; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getNickname() { return nickname; }
     public void setNickname(String nickname) { this.nickname = nickname; }
 
-    public String getGenero() { return genero; }
-    public void setGenero(String genero) { this.genero = genero; }
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
 
-    public LocalDate getFechaRegistroApp() { return fechaRegistroApp; }
-    public void setFechaRegistroApp(LocalDate fechaRegistroApp) { this.fechaRegistroApp = fechaRegistroApp; }
+    public LocalDate getRegistrationDate() { return registrationDate; }
+    public void setRegistrationDate(LocalDate registrationDate) { this.registrationDate = registrationDate; }
 
-    public Region getRegion() { return region; }
-    public void setRegion(Region region) { this.region = region; }
+    public int getRegionId() { return regionId; }
+    public void setRegionId(int regionId) { this.regionId = regionId; }
 }

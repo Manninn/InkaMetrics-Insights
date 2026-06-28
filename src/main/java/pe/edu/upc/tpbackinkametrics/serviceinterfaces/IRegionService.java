@@ -12,5 +12,5 @@ public interface IRegionService {
     public Region update(Region region);
     public void delete(int id);
 
-    public List<Region> buscarPorNombre(String nombre);
+    public List<Region> findByName(String name);
 }
