@@ -49,7 +49,7 @@ public class AdDetectionController {
         AdDetection d = new AdDetection();
         d.setType(dto.getType());
         d.setAppearanceDurationSec(dto.getAppearanceDurationSec());
-        d.setAppearanceTime(java.time.LocalTime.now());
+        d.setAppearanceTime(dto.getAppearanceTime());
         d.setBroadcast(broadcast.get());
         d.setBrand(brand.get());
         AdDetection saved = adDetectionService.insert(d);
@@ -68,6 +68,7 @@ public class AdDetectionController {
         if (brand.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand not found");
         AdDetection ad = existing.get();
         ad.setType(dto.getType());
+        ad.setAppearanceTime(dto.getAppearanceTime());
         ad.setAppearanceDurationSec(dto.getAppearanceDurationSec());
         ad.setBroadcast(broadcast.get());
         ad.setBrand(brand.get());

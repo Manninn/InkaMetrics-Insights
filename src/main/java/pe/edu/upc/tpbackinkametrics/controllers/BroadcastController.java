@@ -42,7 +42,7 @@ public class BroadcastController {
         if (channel.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Channel not found");
         Broadcast b = new Broadcast();
         b.setStreamTitle(dto.getStreamTitle());
-        b.setStartDate(java.time.LocalDate.now());
+        b.setStartDate(dto.getStartDate());
         b.setEndDate(dto.getEndDate());
         b.setIsLive(dto.getIsLive());
         b.setChannel(channel.get());

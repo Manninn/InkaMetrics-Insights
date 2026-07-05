@@ -22,7 +22,7 @@ public class User implements Serializable {
     private List<Role> roles;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
     public Long getId() {

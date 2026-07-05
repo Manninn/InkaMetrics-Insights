@@ -1,6 +1,7 @@
 package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,10 +11,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import pe.edu.upc.tpbackinkametrics.dtos.UserDTO;
+import pe.edu.upc.tpbackinkametrics.entities.Company;
+import pe.edu.upc.tpbackinkametrics.entities.User;
 import pe.edu.upc.tpbackinkametrics.securities.JwtRequest;
 import pe.edu.upc.tpbackinkametrics.securities.JwtResponse;
 import pe.edu.upc.tpbackinkametrics.securities.JwtTokenUtil;
 import pe.edu.upc.tpbackinkametrics.serviceimplements.JwtUserDetailsService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IUserService;
 
 
 @RestController
@@ -27,6 +32,28 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Autowired
+    private IUserService userService;
+
+    @PostMapping("/InkaMetrics/tf/register")
+    public ResponseEntity<String> register(@RequestBody UserDTO dto) {
+        try {
+            User user = new User();
+            user.setUsername(dto.getUsername());
+            user.setPassword(dto.getPassword());
+            user.setEnabled(true);
+            if (dto.getCompanyId() != null && dto.getCompanyId() > 0) {
+                Company company = new Company();
+                company.setId(dto.getCompanyId());
+                user.setCompany(company);
+            }
+            userService.insert(user);
+            return ResponseEntity.ok("Usuario registrado correctamente");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al registrar: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/InkaMetrics/tf/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest req) throws Exception {

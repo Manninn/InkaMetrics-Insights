@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -22,7 +23,7 @@ import pe.edu.upc.tpbackinkametrics.serviceimplements.JwtUserDetailsService;
 @Configuration
 @EnableWebSecurity
 // CÓDIGO COMENTADO (línea siguiente): activa @PreAuthorize en controllers para seguridad por roles. Descomentar para reactivar JWT.
-// @EnableMethodSecurity(proxyTargetClass = true)
+@EnableMethodSecurity(proxyTargetClass = true)
 // (1) para jwt funcione de nuevo, descomentar esto
 public class WebSecurityConfig {
 
@@ -60,19 +61,20 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(req -> req
-                        // .requestMatchers(
-                        // "/InkaMetrics/tf/login",
-                        // "/swagger-ui/**",
-                        // "/v3/api-docs/**",
-                        // "/swagger-resources/**",
-                        // "/webjars/**", "/error",
-                        // "/usuarios").permitAll()
                         // .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        // .anyRequest().authenticated()
                         // (2) para jwt funcione de nuevo, descomentar estas 3 lineas de abajo
+                        .requestMatchers(
+                                "/InkaMetrics/tf/login",
+                                "/InkaMetrics/tf/register",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/error"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                         // AGREGADO: permite todos los endpoints sin autenticación para que el frontend Angular funcione sin token.
-
-                        .anyRequest().permitAll() // reactivar JWT -> Comentar esto (3)
+                        // .anyRequest().permitAll() // reactivar JWT -> Comentar esto (3)
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(AbstractHttpConfigurer::disable)
