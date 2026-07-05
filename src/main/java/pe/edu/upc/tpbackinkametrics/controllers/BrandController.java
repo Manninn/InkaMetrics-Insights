@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,11 +56,15 @@ public class BrandController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Brand> brand = brandService.listId(id);
-        if (brand.isPresent()) {
+        if (brand.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand not found");
+        }
+        try {
             brandService.delete(id);
             return ResponseEntity.ok("Brand deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Brand not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar la marca porque tiene detecciones de anuncios asociadas.");
         }
     }
 
