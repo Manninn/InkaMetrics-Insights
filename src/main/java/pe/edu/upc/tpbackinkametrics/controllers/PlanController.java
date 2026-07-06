@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,11 +56,15 @@ public class PlanController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Plan> plan = planService.listId(id);
-        if (plan.isPresent()) {
+        if (plan.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan not found");
+        }
+        try {
             planService.delete(id);
             return ResponseEntity.ok("Plan deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Plan not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar el plan porque tiene empresas asociadas.");
         }
     }
 

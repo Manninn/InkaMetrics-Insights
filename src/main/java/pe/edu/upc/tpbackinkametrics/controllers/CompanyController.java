@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,8 +11,11 @@ import pe.edu.upc.tpbackinkametrics.dtos.CompanyDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Company;
 import pe.edu.upc.tpbackinkametrics.entities.Plan;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.ICompanyService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMonitoredChannelService;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IPlanService;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IUserService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +28,10 @@ public class CompanyController {
     private ICompanyService companyService;
     @Autowired
     private IPlanService planService;
+    @Autowired
+    private IMonitoredChannelService monitoredChannelService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('ADMINISTRADOR') or hasAuthority('CLIENTE')")
@@ -65,11 +73,28 @@ public class CompanyController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Company> company = companyService.listId(id);
-        if (company.isPresent()) {
+        if (company.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found");
+        }
+        List<String> reasons = new ArrayList<>();
+        if (!monitoredChannelService.listByCompany(id).isEmpty()) {
+            reasons.add("canales monitoreados");
+        }
+        boolean hasUsers = userService.list().stream()
+                .anyMatch(u -> u.getCompany() != null && u.getCompany().getId() == id);
+        if (hasUsers) {
+            reasons.add("usuarios");
+        }
+        if (!reasons.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar la empresa porque tiene " + String.join(" y ", reasons) + " asociados.");
+        }
+        try {
             companyService.delete(id);
             return ResponseEntity.ok("Company deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar la empresa porque tiene registros asociados.");
         }
     }
 

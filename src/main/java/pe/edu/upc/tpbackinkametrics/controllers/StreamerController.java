@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -68,11 +69,15 @@ public class StreamerController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Streamer> streamer = streamerService.listId(id);
-        if (streamer.isPresent()) {
+        if (streamer.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Streamer not found");
+        }
+        try {
             streamerService.delete(id);
             return ResponseEntity.ok("Streamer deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Streamer not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar el streamer porque tiene canales asociados.");
         }
     }
 

@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,11 +55,15 @@ public class PlatformController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Platform> platform = platformService.listId(id);
-        if (platform.isPresent()) {
+        if (platform.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Platform not found");
+        }
+        try {
             platformService.delete(id);
             return ResponseEntity.ok("Platform deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Platform not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar la plataforma porque tiene canales asociados.");
         }
     }
 

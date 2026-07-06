@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,6 +11,7 @@ import pe.edu.upc.tpbackinkametrics.dtos.ChannelDTO;
 import pe.edu.upc.tpbackinkametrics.entities.Channel;
 import pe.edu.upc.tpbackinkametrics.entities.Platform;
 import pe.edu.upc.tpbackinkametrics.entities.Streamer;
+import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IAdDetectionService;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IChannelService;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMonitoredChannelService;
 import pe.edu.upc.tpbackinkametrics.serviceinterfaces.IMetricSnapshotService;
@@ -33,6 +35,8 @@ public class ChannelController {
     private IBroadcastService broadcastService;
     @Autowired
     private IMetricSnapshotService metricSnapshotService;
+    @Autowired
+    private IAdDetectionService adDetectionService;
     @Autowired
     private IPlatformService platformService;
     @Autowired
@@ -91,19 +95,27 @@ public class ChannelController {
         if (channel.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Channel not found");
         }
-        broadcastService.list().stream()
-            .filter(b -> b.getChannel() != null && b.getChannel().getId() == id)
-            .forEach(b -> {
-                metricSnapshotService.list().stream()
-                    .filter(ms -> ms.getBroadcast() != null && ms.getBroadcast().getId() == b.getId())
-                    .forEach(ms -> metricSnapshotService.delete(ms.getId()));
-                broadcastService.delete(b.getId());
-            });
-        monitoredChannelService.list().stream()
-            .filter(mc -> mc.getChannel() != null && mc.getChannel().getId() == id)
-            .forEach(mc -> monitoredChannelService.delete(mc.getId()));
-        channelService.delete(id);
-        return ResponseEntity.ok("Channel deleted successfully");
+        try {
+            broadcastService.list().stream()
+                .filter(b -> b.getChannel() != null && b.getChannel().getId() == id)
+                .forEach(b -> {
+                    metricSnapshotService.list().stream()
+                        .filter(ms -> ms.getBroadcast() != null && ms.getBroadcast().getId() == b.getId())
+                        .forEach(ms -> metricSnapshotService.delete(ms.getId()));
+                    adDetectionService.list().stream()
+                        .filter(ad -> ad.getBroadcast() != null && ad.getBroadcast().getId() == b.getId())
+                        .forEach(ad -> adDetectionService.delete(ad.getId()));
+                    broadcastService.delete(b.getId());
+                });
+            monitoredChannelService.list().stream()
+                .filter(mc -> mc.getChannel() != null && mc.getChannel().getId() == id)
+                .forEach(mc -> monitoredChannelService.delete(mc.getId()));
+            channelService.delete(id);
+            return ResponseEntity.ok("Channel deleted successfully");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar el canal porque tiene detecciones de anuncios asociadas.");
+        }
     }
 
     @GetMapping("/{id}")

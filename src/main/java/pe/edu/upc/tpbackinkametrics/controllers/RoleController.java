@@ -2,6 +2,9 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.tpbackinkametrics.dtos.RoleDTO;
@@ -13,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/roles")
+@PreAuthorize("hasAuthority('ADMINISTRADOR')")
 public class RoleController {
     @Autowired
     private IRoleService roleService;
@@ -25,7 +29,6 @@ public class RoleController {
     }
 
     @GetMapping("/list")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<RoleDTO> list() {
         return roleService.list().stream().map(x -> mO.map(x, RoleDTO.class)).collect(Collectors.toList());
     }
@@ -36,8 +39,14 @@ public class RoleController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
-        roleService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+        try {
+            roleService.delete(id);
+            return ResponseEntity.ok("Role deleted successfully");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar el rol porque tiene usuarios asociados.");
+        }
     }
 
     @GetMapping("/{id}")

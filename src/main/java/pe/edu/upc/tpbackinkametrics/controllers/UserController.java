@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -49,8 +50,13 @@ public class UserController {
         if (existing == null || existing.getId() == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-        userService.delete(id);
-        return ResponseEntity.ok("User deleted successfully");
+        try {
+            userService.delete(id);
+            return ResponseEntity.ok("User deleted successfully");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar el usuario porque tiene roles asociados.");
+        }
     }
 
     @GetMapping("/{id}")

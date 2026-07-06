@@ -2,6 +2,7 @@ package pe.edu.upc.tpbackinkametrics.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,11 +54,15 @@ public class RegionController {
     @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public ResponseEntity<String> delete(@PathVariable int id) {
         Optional<Region> region = regionService.listId(id);
-        if (region.isPresent()) {
+        if (region.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Region not found");
+        }
+        try {
             regionService.delete(id);
             return ResponseEntity.ok("Region deleted successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Region not found");
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("No se puede eliminar la región porque tiene streamers asociados.");
         }
     }
 
